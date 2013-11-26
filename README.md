@@ -1,3 +1,27 @@
+If you want to turn a JSON file into a java.util.Map, it appears that Boon is the fastest option.
+When I first read the article, this was not the case.
+I had some ideas for speeding up the JSON parsing, but never seemed to need to (it seemed fast enough).
+Then this article came out, http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java.
+
+I downloaded the source for the benchmark, and ran the benchmarks.
+
+Then I tweaked Boon JSON parser to be faster than GSON.
+
+I also improved compliance testing of the Boon parser, 
+and was able to tweak performance by 20x to 25x for Boon parser.
+
+Then I added the performance enhancements that I dreamed about, but never implemented.
+
+It appears it is now faster the Jackson for the use case of turning a JSON string into a java.util.Map.
+
+Boon allows turning a map into a Java object so it can do object serializaiton of JSON, 
+but you have to first convert JSON into Map and then Map into Object.
+
+I have not performance tuned this and I am sure GSON and Jackson must be faster.
+
+But tune in later for more benchmarks.
+
+
 parsers-in-java
 ===============
 
