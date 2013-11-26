@@ -6,7 +6,7 @@ A set of JSON parser benchmarks.
 
 JSON Compliance
 
-Using json.org/examples as a guide:
+Using json.org/examples (http://json.org/example) as a guide:
 
 ```
 testing actionLabel.json 
