@@ -1,17 +1,13 @@
 package com.jenkov.parsers;
 
-import com.google.gson.Gson;
 import com.jenkov.parsers.core.DataCharBuffer;
+import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.CharArrayReader;
 import java.io.IOException;
 import java.util.Map;
 
-import static org.boon.Exceptions.die;
+public class JacksonBenchmark {
 
-/**
- */
-public class GsonBenchmark {
 
     public static void main(String[] args) throws IOException {
         String fileName = "data/small.json.txt";
@@ -21,12 +17,14 @@ public class GsonBenchmark {
         System.out.println("parsing: " + fileName);
 
         DataCharBuffer dataCharBuffer = FileUtil.readFile(fileName);
-        Gson gson = new Gson();
+        ObjectMapper objectMapper = new ObjectMapper();
 
         int iterations = 10_000_000; //10.000.000 iterations to warm up JIT and minimize one-off overheads etc.
         long startTime = System.currentTimeMillis();
+
+        String str = new String (dataCharBuffer.data);
         for(int i=0; i<iterations; i++) {
-            parse(dataCharBuffer, gson);
+            parse(str, objectMapper);
         }
         long endTime = System.currentTimeMillis();
 
@@ -35,24 +33,13 @@ public class GsonBenchmark {
         System.out.println("final time: " + finalTime);
     }
 
-    private static void parse(DataCharBuffer dataCharBuffer, Gson gson) {
-        Map<String, Object> map = (Map<String, Object>) gson.fromJson (
-                new CharArrayReader ( dataCharBuffer.data, 0, dataCharBuffer.length ), Map.class );
-
-//        Double d  = (Double) map.get ( "num" );
-//
-//        if (d != 1.0) {
-//            die();
-//        }
-//
-//
-//        if (!map.get ( "debug" ).equals ( "on\toff" )) {
-//            die( "$$" + map.get("debug") + "$$");
-//        }
-
-
+    private static void parse(String str, ObjectMapper mapper) {
+        try {
+            Map<String, Object> map = (Map<String, Object>) mapper.readValue ( str, Map.class );
+        } catch ( IOException e ) {
+            e.printStackTrace ();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
     }
-
 
 }
