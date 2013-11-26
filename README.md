@@ -87,18 +87,26 @@ http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
 Parse times for small json 10,000,000 runs:
 
 ```
-GSON:         8,334
+GSON:         8,334 mili second
 JACKSON:      7,156
 Boon 2:       2,645
 Boon 1:       3,799
 InfoQ :      11,431
 ```
 
+
 Smaller is better.
+
+The slowest parser was the one from the article on how to write fast parser.
+I make mistakes too so no harm, no foul.
+It is still an interesting article and has good ideas.
+Boon 2 is 3x faster than Jackson for this use case.
+Boon 1 is almost 2x faster then Jackson for this use case.
+
 
 Parse times for large json file 1,000,000 runs:
 ```
-Boon 2:     15,543
+Boon 2:     15,543 mili second
 Boon 1:     19,967
 JACKSON:    18,985
 InfoQ:      ParserException
@@ -106,9 +114,11 @@ GSON:       25,870
 ```
 
 Lower is better. 
+It should be noted that Boon 1 was taking 200+ seconds when I first ran this test.
+I had to make some changes to get Boon 1 to this level. It was actually one small change. ;)
+I love profilers. 
 
-
-Here is the JSON for the small json file:
+Here is the JSON for the small json file (large JSON file is below):
 
 ```json
 {
@@ -582,4 +592,8 @@ Large json file from json.org examples
         "taglib-location": "/WEB-INF/tlds/cofax.tld"}}}
 ```
 
+I am not sure what a micro benchmark is, and this benchmark might not be completely fair. Please let me know how to improve it.
 
+Thanks
+
+--Rick Hightower
