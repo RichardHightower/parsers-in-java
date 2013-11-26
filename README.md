@@ -46,6 +46,10 @@ JACK 1 PASSED widget.json
 
 ```
 
+For background, read this article on how to write fast parsers.
+
+http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
+
 Parse times for small json 10,000,000 runs:
 
 ```
@@ -66,6 +70,10 @@ JACKSON:    18,985
 InfoQ:      ParserException
 GSON:       25,870
 ```
+
+Lower is better. 
+
+
 Here is the JSON for the small json file:
 
 ```json
