@@ -17,9 +17,12 @@ It appears it is now faster the Jackson for the use case of turning a JSON strin
 Boon allows turning a map into a Java object so it can do object serializaiton of JSON, 
 but you have to first convert JSON into Map and then Map into Object.
 
-I have not performance tuned this and I am sure GSON and Jackson must be faster.
+I have not performance tuned full Object serialization this and I am sure GSON and Jackson must be faster.
+Boon plans on supporting this so the plan is for it be very fast if not the fastest (eventually).
 
 But tune in later for more benchmarks.
+
+For now, it is just fastest at serialization to a map.
 
 
 parsers-in-java
