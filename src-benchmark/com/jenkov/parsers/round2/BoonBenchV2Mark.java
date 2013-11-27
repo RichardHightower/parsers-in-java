@@ -1,7 +1,5 @@
 package com.jenkov.parsers.round2;
 
-import com.jenkov.parsers.FileUtil;
-import com.jenkov.parsers.core.DataCharBuffer;
 import org.boon.IO;
 import org.boon.json.JSONParser2;
 

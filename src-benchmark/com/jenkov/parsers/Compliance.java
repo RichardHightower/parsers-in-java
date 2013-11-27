@@ -36,6 +36,8 @@ public class Compliance {
                 puts ("BOON 1", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 1", "FAILED", fileName);
+                ex.printStackTrace ();
+                System.err.flush ();
             }
 
             try {
@@ -44,6 +46,8 @@ public class Compliance {
                 puts ("BOON 2", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 2", "FAILED", fileName);
+                ex.printStackTrace ();
+                System.err.flush ();
             }
 
 
@@ -55,6 +59,8 @@ public class Compliance {
                 puts ("GSON #", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("GSON #", "FAILED", fileName);
+                ex.printStackTrace ();
+                System.err.flush ();
             }
 
 
@@ -70,6 +76,8 @@ public class Compliance {
                 puts ("INFO Q", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("INFO Q", "FAILED", fileName);
+                //ex.printStackTrace ();
+                //System.err.flush ();
             }
 
 
@@ -81,6 +89,8 @@ public class Compliance {
                 puts ("JACK 1", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("JACK 1", "FAILED", fileName);
+                ex.printStackTrace ();
+                System.err.flush ();
             }
 
 
