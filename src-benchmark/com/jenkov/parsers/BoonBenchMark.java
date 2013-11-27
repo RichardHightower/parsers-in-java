@@ -5,7 +5,7 @@ import com.jenkov.parsers.core.DataCharBuffer;
 import java.io.IOException;
 import java.util.Map;
 
-import org.boon.json.JSONParser;
+import org.boon.json.JsonParser;
 
 import static org.boon.Exceptions.die;
 
@@ -36,7 +36,7 @@ public class BoonBenchMark {
     }
 
     private static void parse(DataCharBuffer dataCharBuffer) {
-        Map<String, Object> map =  JSONParser.parseMap ( dataCharBuffer.data );
+        Map<String, Object> map =  JsonParser.parseMap ( dataCharBuffer.data );
 
 //        Integer i  = (Integer) map.get ( "num" );
 //

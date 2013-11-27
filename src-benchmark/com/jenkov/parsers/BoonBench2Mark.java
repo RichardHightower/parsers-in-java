@@ -1,7 +1,7 @@
 package com.jenkov.parsers;
 
 import com.jenkov.parsers.core.DataCharBuffer;
-import org.boon.json.JSONParser2;
+import org.boon.json.JsonLazyEncodeParser;
 
 import java.io.IOException;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class BoonBench2Mark {
     }
 
     private static void parse(DataCharBuffer dataCharBuffer) {
-        Map<String, Object> map =  JSONParser2.parseMap ( dataCharBuffer.data );
+        Map<String, Object> map =  JsonLazyEncodeParser.parseMap ( dataCharBuffer.data );
 
 //        Integer i  = (Integer) map.get ( "num" );
 //

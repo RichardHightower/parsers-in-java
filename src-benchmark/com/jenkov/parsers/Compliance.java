@@ -3,10 +3,9 @@ package com.jenkov.parsers;
 import com.google.gson.Gson;
 import com.jenkov.parsers.core.DataCharBuffer;
 import com.jenkov.parsers.core.IndexBuffer;
-import com.jenkov.parsers.json.JsonParser;
 import org.boon.IO;
-import org.boon.json.JSONParser;
-import org.boon.json.JSONParser2;
+import org.boon.json.JsonParser;
+import org.boon.json.JsonLazyEncodeParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.util.List;
@@ -32,7 +31,7 @@ public class Compliance {
 
             try {
                 //Boon 1
-                JSONParser.parseMap ( fileContents );
+                JsonParser.parseMap ( fileContents );
                 puts ("BOON 1", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 1", "FAILED", fileName);
@@ -42,7 +41,7 @@ public class Compliance {
 
             try {
                 //Boon 2
-                JSONParser2.parseMap ( fileContents );
+                JsonLazyEncodeParser.parseMap ( fileContents );
                 puts ("BOON 2", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 2", "FAILED", fileName);
@@ -69,7 +68,7 @@ public class Compliance {
 
             try {
 
-                JsonParser jsonParser   = new JsonParser();
+                com.jenkov.parsers.json.JsonParser jsonParser   = new com.jenkov.parsers.json.JsonParser();
                 IndexBuffer jsonElements = new IndexBuffer(1024, true);
                 jsonParser.parse(new DataCharBuffer (fileContents.toCharArray ()), jsonElements);
 

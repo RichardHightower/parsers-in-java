@@ -1,7 +1,7 @@
 package com.jenkov.parsers.round2;
 
 import org.boon.IO;
-import org.boon.json.JSONParser2;
+import org.boon.json.JsonLazyEncodeParser;
 
 import java.io.IOException;
 import java.util.Map;
@@ -20,8 +20,11 @@ public class BoonBenchV2Mark {
 
         int iterations = 1_000_000; //1.000.000 iterations to warm up JIT and minimize one-off overheads etc.
         long startTime = System.currentTimeMillis();
+
+        final char[] chars = fileContents.toCharArray ();
+
         for(int i=0; i<iterations; i++) {
-            parse(fileContents);
+            parse(chars);
         }
         long endTime = System.currentTimeMillis();
 
@@ -30,8 +33,8 @@ public class BoonBenchV2Mark {
         System.out.println("final time: " + finalTime);
     }
 
-    private static void parse(String fileContents) {
-        Map<String, Object> map =  JSONParser2.parseMap ( fileContents );
+    private static void parse(char [] fileContents) {
+        Map<String, Object> map =  JsonLazyEncodeParser.parseMap ( fileContents );
 
 
     }
