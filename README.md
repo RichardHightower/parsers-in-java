@@ -84,6 +84,82 @@ For background, read this article on how to write fast parsers.
 
 http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
 
+
+Update for times:
+
+Taking examples from json.org.
+
+```
+jackson              6446                     actionLabel.json              1000000 
+gson                 6090                     actionLabel.json              1000000 
+boon 1               5080                     actionLabel.json              1000000 
+boon lazy a          3556                     actionLabel.json              1000000 
+boon lazy c          3305                     actionLabel.json              1000000 
+boon ascii           7115                     actionLabel.json              1000000 
+```
+
+Boon is faster and is up to twice as fast a the next fastest Jackson.
+
+
+Here are the times for menu.json taken from json.org
+
+```
+jackson              1880                            menu.json              1000000 
+gson                 2051                            menu.json              1000000 
+boon 1               1483                            menu.json              1000000 
+boon lazy a          1008                            menu.json              1000000 
+boon lazy c          966                             menu.json              1000000 
+boon ascii           2083                            menu.json              1000000 
+```
+
+Boon is faster. Up to twice as fast as Jackson. I'll describe the four different Boon parsers.
+
+```
+jackson              3052                            sgml.json              1000000 
+gson                 3209                            sgml.json              1000000 
+boon 1               2453                            sgml.json              1000000 
+boon lazy a          1744                            sgml.json              1000000 
+boon lazy c          1682                            sgml.json              1000000 
+boon ascii           3270                            sgml.json              1000000 
+```
+
+Bit of a theme. :)
+
+```
+jackson              16202                         webxml.json              1000000 
+gson                 20996                         webxml.json              1000000 
+boon 1               14910                         webxml.json              1000000 
+boon lazy a          10776                         webxml.json              1000000 
+boon lazy c          10519                         webxml.json              1000000 
+boon ascii           20122                         webxml.json              1000000 
+```
+
+Boon still faster by a large margin. Boon 1 is a full, eager parser. 
+
+```
+jackson              3413                          widget.json              1000000 
+gson                 3842                          widget.json              1000000 
+boon 1               2840                          widget.json              1000000 
+boon lazy a          1995                          widget.json              1000000 
+boon lazy c          1877                          widget.json              1000000 
+boon ascii           4203                          widget.json              1000000 
+```
+
+Boon 1 is just a vanilla JSON parser albiet a fast one. 
+Boon lazy C is a lazy encoder simmilar to what the article describes, but with the caveat that it actually works, and has a useable API.
+Boon Ascii is a direct from byte[] parser. The overhead is in the character encoding which if you convert ahead of time, you don't have the cost of the encoding as part of the parse. So.... Boon Ascii might go away.
+
+Boon Lazy A also works with Binary, but does a lazy encode so it is fast. 
+
+I think Boon Lazy C is always going to win these. :)
+
+The Object Serializaer (when I write it) will build on top of a derivative of Boon Lazy C.
+It will be the fastest JSON to Java Object serializer for at least fifteen minutes. :)
+
+Ok... that ends the update from the parser front. 
+
+Boon Lazy A implements what he spoke about in the article with the caveat of it works. It does full JSON parsing not partial, and it is compliant. And it has a useable API. More later.... Back to work.
+
 Parse times for small json 10,000,000 runs:
 
 ```
