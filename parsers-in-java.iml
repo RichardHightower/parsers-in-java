@@ -24,7 +24,9 @@
           <root url="jar://$MODULE_DIR$/../boon/target/boon.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../boon/target/boon-sources.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
@@ -45,6 +47,9 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.2.4" level="project" />
+    <orderEntry type="library" name="junit:junit:4.11" level="project" />
   </component>
 </module>
 
