@@ -85,6 +85,88 @@ For background, read this article on how to write fast parsers.
 http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
 
 
+Latest times after adding object serialization: 
+
+```
+Name                 Time                                 File           Iterations 
+jackson              6,466                    actionLabel.json            1,000,000 
+gson                 6,229                    actionLabel.json            1,000,000 
+boon 1               4,716                    actionLabel.json            1,000,000 
+boon full            4,948                    actionLabel.json            1,000,000 
+boon lazy a          3,603                    actionLabel.json            1,000,000 
+boon lazy c          3,361                    actionLabel.json            1,000,000 
+boon ascii           7,227                    actionLabel.json            1,000,000 
+boon full a          7,516                    actionLabel.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+Name                 Time                                 File           Iterations 
+jackson              8,506                         medium.json            1,000,000 
+gson                 9,742                         medium.json            1,000,000 
+boon 1               7,878                         medium.json            1,000,000 
+boon full            7,921                         medium.json            1,000,000 
+boon lazy a          5,588                         medium.json            1,000,000 
+boon lazy c          5,310                         medium.json            1,000,000 
+boon ascii           9,817                         medium.json            1,000,000 
+boon full a          10,649                        medium.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+Name                 Time                                 File           Iterations 
+jackson              1,913                           menu.json            1,000,000 
+gson                 2,087                           menu.json            1,000,000 
+boon 1               1,546                           menu.json            1,000,000 
+boon full            1,510                           menu.json            1,000,000 
+boon lazy a          1,031                           menu.json            1,000,000 
+boon lazy c          964                             menu.json            1,000,000 
+boon ascii           2,051                           menu.json            1,000,000 
+boon full a          2,181                           menu.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+Name                 Time                                 File           Iterations 
+jackson              3,149                           sgml.json            1,000,000 
+gson                 3,262                           sgml.json            1,000,000 
+boon 1               2,601                           sgml.json            1,000,000 
+boon full            2,552                           sgml.json            1,000,000 
+boon lazy a          1,805                           sgml.json            1,000,000 
+boon lazy c          1,697                           sgml.json            1,000,000 
+boon ascii           3,303                           sgml.json            1,000,000 
+boon full a          3,545                           sgml.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+Name                 Time                                 File           Iterations 
+jackson              494                            small.json            1,000,000 
+gson                 668                            small.json            1,000,000 
+boon 1               284                            small.json            1,000,000 
+boon full            280                            small.json            1,000,000 
+boon lazy a          184                            small.json            1,000,000 
+boon lazy c          177                            small.json            1,000,000 
+boon ascii           381                            small.json            1,000,000 
+boon full a          445                            small.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+Name                 Time                                 File           Iterations 
+jackson              15,808                        webxml.json            1,000,000 
+gson                 21,102                        webxml.json            1,000,000 
+boon 1               16,118                        webxml.json            1,000,000 
+boon full            15,731                        webxml.json            1,000,000 
+boon lazy a          11,074                        webxml.json            1,000,000 
+boon lazy c          10,607                        webxml.json            1,000,000 
+boon ascii           19,918                        webxml.json            1,000,000 
+boon full a          21,402                        webxml.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+Name                 Time                                 File           Iterations 
+jackson              3,378                         widget.json            1,000,000 
+gson                 3,920                         widget.json            1,000,000 
+boon 1               3,208                         widget.json            1,000,000 
+boon full            3,170                         widget.json            1,000,000 
+boon lazy a          2,015                         widget.json            1,000,000 
+boon lazy c          1,877                         widget.json            1,000,000 
+boon ascii           4,097                         widget.json            1,000,000 
+boon full a          4,391                         widget.json            1,000,000 
+Winner: boon lazy c 
+___________________________________________________________________________________ 
+```
+
 Update for times:
 
 Taking examples from json.org.
