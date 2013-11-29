@@ -29,12 +29,31 @@ public class RunAll {
 
             List<BenchMark> benchMarks =  buildBenchMarkList( fileContents, 1_000_000 );
 
+
+            puts (Str.rpad ( "Name", 20, ' '),  Str.rpad("Time", 20, ' '),
+                    Str.lpad ("File",  20, ' '),
+                    Str.lpad("Iterations", 20, ' '));
+
+
+            long min = Long.MAX_VALUE;
+            String winner = "";
+
             for (BenchMark benchMark : benchMarks) {
                 benchMark.test ();
-                puts (Str.rpad ( benchMark.name, 20, ' '),  Str.rpad(""+benchMark.finalTime, 20, ' '),
+                if (benchMark.finalTime < min) {
+
+                    min = benchMark.finalTime;
+                    winner = benchMark.name;
+                }
+                puts (Str.rpad ( benchMark.name, 20, ' '),
+                        Str.rpad(String.format("%,d", benchMark.finalTime), 20, ' '),
                         Str.lpad (""+ IO.path (file).getFileName (),  20, ' '),
-                        Str.lpad(""+benchMark.times, 20, ' '));
+                        Str.lpad( String.format ("%,d", benchMark.times), 20, ' '));
             }
+
+            puts ("Winner:", winner);
+
+            puts("___________________________________________________________________________________");
         }
 
     }
@@ -70,6 +89,15 @@ public class RunAll {
 
                     }
                 },
+                new BenchMark("boon full  ", times, fileContents) {
+
+                    @Override
+                    void run() {
+                        Map<String, Object> map =  JsonParser.fullParseMap ( chars );
+
+                    }
+                },
+
                 new BenchMark("boon lazy a", times, fileContents) {
 
                     @Override
@@ -91,6 +119,14 @@ public class RunAll {
                     @Override
                     void run() {
                         Map<String, Object> map =  JsonAsciiParser.parseMap ( bytes );
+
+                    }
+                },
+                new BenchMark("boon full a", times, fileContents) {
+
+                    @Override
+                    void run() {
+                        Map<String, Object> map =  JsonAsciiParser.fullParseMap ( bytes );
 
                     }
                 }
