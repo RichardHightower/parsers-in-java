@@ -9,7 +9,7 @@ import java.io.IOException;
 public class IterationBenchmark {
 
     public static void main(String[] args) throws IOException {
-        String fileName = "data/medium.json.txt";
+        String fileName = "data/medium.json";
         if(args.length > 0) {
             fileName = args[0];
         }

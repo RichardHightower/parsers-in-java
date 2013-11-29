@@ -10,7 +10,7 @@ public class JacksonBenchmark {
 
 
     public static void main(String[] args) throws IOException {
-        String fileName = "data/small.json.txt";
+        String fileName = "data/small.json";
         if(args.length > 0) {
             fileName = args[0];
         }
