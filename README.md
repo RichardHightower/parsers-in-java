@@ -85,6 +85,26 @@ For background, read this article on how to write fast parsers.
 http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
 
 
+Object serialization (early draft):
+
+```
+Name                 Time                                 File           Iterations
+jackson              1,241                       AllTypes.json              200,000
+gson                 1,417                       AllTypes.json              200,000
+jackson al2          1,040                       AllTypes.json              200,000
+gson  al2            984                         AllTypes.json              200,000
+jackson al3          886                         AllTypes.json              200,000
+gson  al3            844                         AllTypes.json              200,000
+boon lazy c 1        1,563                       AllTypes.json              200,000
+boon lazy c 2        1,011                       AllTypes.json              200,000
+boon lazy c 3        831                         AllTypes.json              200,000
+boon full c 1        1,572                       AllTypes.json              200,000
+boon full c 2        1,037                       AllTypes.json              200,000
+boon full c 3        842                         AllTypes.json              200,000
+Winner: boon lazy c 3
+___________________________________________________________________________________
+```
+
 Update for times:
 
 Taking examples from json.org.
