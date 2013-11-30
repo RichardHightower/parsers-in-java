@@ -24,7 +24,7 @@ public class ObjectInputSerialization {
         String file = "object-serialization/AllTypes.json";
         String fileContents = IO.read ( file  );
 
-        List<BenchMark> benchMarks =  buildBenchMarkList ( fileContents, 1_000_000 );
+        List<BenchMark> benchMarks =  buildBenchMarkList ( fileContents, 100_000 );
 
 
         puts ( Str.rpad ( "Name", 20, ' ' ),  Str.rpad("Time", 20, ' '),
@@ -34,6 +34,13 @@ public class ObjectInputSerialization {
 
         long min = Long.MAX_VALUE;
         String winner = "";
+
+        for (BenchMark benchMark : benchMarks) {
+            benchMark.test ();
+        }
+
+
+        benchMarks =  buildBenchMarkList ( fileContents, 200_000 );
 
         for (BenchMark benchMark : benchMarks) {
             benchMark.test ();
@@ -162,6 +169,34 @@ public class ObjectInputSerialization {
                     void run() {
 
                         JsonLazyEncodeParser.parseInto ( AllTypes3.class, chars );
+
+                    }
+                },
+
+                new BenchMark ( "boon full c 1", times, fileContents ) {
+
+                    @Override
+                    void run() {
+
+                        JsonLazyEncodeParser.fullParseInto ( AllTypes.class, chars );
+
+                    }
+                },
+                new BenchMark ( "boon full c 2", times, fileContents ) {
+
+                    @Override
+                    void run() {
+
+                        JsonLazyEncodeParser.fullParseInto ( AllTypes2.class, chars );
+
+                    }
+                },
+                new BenchMark ( "boon full c 3", times, fileContents ) {
+
+                    @Override
+                    void run() {
+
+                        JsonLazyEncodeParser.fullParseInto ( AllTypes3.class, chars );
 
                     }
                 }
