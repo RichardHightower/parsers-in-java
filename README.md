@@ -80,6 +80,27 @@ JACK 1 PASSED widget.json
 
 ```
 
+
+First cut of object serialization (Boon was winning 2 out of three, but I did something that slowed it down while trying to speed it up).
+
+```
+Name                 Time                                 File           Iterations 
+jackson              1,230                       AllTypes.json              200,000 
+gson                 1,440                       AllTypes.json              200,000 
+jackson al2          1,027                       AllTypes.json              200,000 
+gson  al2            1,008                       AllTypes.json              200,000 
+jackson al3          882                         AllTypes.json              200,000 
+gson  al3            851                         AllTypes.json              200,000 
+boon lazy c 1        1,546                       AllTypes.json              200,000 
+boon lazy c 2        1,016                       AllTypes.json              200,000 
+boon lazy c 3        817                         AllTypes.json              200,000 
+boon full c 1        1,566                       AllTypes.json              200,000 
+boon full c 2        1,015                       AllTypes.json              200,000 
+boon full c 3        819                         AllTypes.json              200,000 
+Winner: boon lazy c 3 
+```
+
+Boon was doing better, but now it just wins some not 2/3rds.
 For background, read this article on how to write fast parsers.
 
 http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
