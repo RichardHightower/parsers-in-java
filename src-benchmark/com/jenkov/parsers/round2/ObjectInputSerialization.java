@@ -24,7 +24,7 @@ public class ObjectInputSerialization {
         String file = "object-serialization/AllTypes.json";
         String fileContents = IO.read ( file  );
 
-        List<BenchMark> benchMarks =  buildBenchMarkList ( fileContents, 100_000 );
+        List<BenchMark> benchMarks =  buildBenchMarkList ( fileContents, 1_000_000 );
 
 
 
@@ -35,6 +35,7 @@ public class ObjectInputSerialization {
 
         for (BenchMark benchMark : benchMarks) {
             benchMark.test ();
+            puts(".");
         }
 
         processRun ( file, buildBenchMarkListFullObject ( fileContents, 1_000_000 ),  "Full object" );

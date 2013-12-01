@@ -46,6 +46,37 @@
             "string" : "test",
             "myByte" : 3
         }
+    ],
+
+
+    "allTypes2" : [
+        {
+            "myInt" : 1,
+            "myFloat" : 1.1,
+            "myDouble" : 1.2,
+            "myShort" : 2,
+            "myBoolean" : true,
+            "string" : "test",
+            "myByte" : 3
+        },
+        {
+            "myInt" : 1,
+            "myFloat" : 1.1,
+            "myDouble" : 1.2,
+            "myShort" : 2,
+            "myBoolean" : true,
+            "string" : "test",
+            "myByte" : 3
+        },
+        {
+            "myInt" : 1,
+            "myFloat" : 1.1,
+            "myDouble" : 1.2,
+            "myShort" : 2,
+            "myBoolean" : true,
+            "string" : "test",
+            "myByte" : 3
+        }
     ]
 
 }
