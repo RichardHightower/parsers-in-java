@@ -115,7 +115,109 @@ ________________________________________________________________________________
 
 ```
 
-Latest times after adding object serialization:
+The object was fairly complex and has all Java primitive types.
+
+
+Latest times after optimizing object serialization to be faster than GSON and Jackson:
+
+```
+Name                 Time                                 File           Iterations
+jackson              6,530                    actionLabel.json            1,000,000
+gson                 6,096                    actionLabel.json            1,000,000
+boon 1               4,703                    actionLabel.json            1,000,000
+boon full            4,911                    actionLabel.json            1,000,000
+boon lazy a          3,516                    actionLabel.json            1,000,000
+boon lazy c          3,103                    actionLabel.json            1,000,000
+boon ascii           7,220                    actionLabel.json            1,000,000
+boon full a          7,529                    actionLabel.json            1,000,000
+boon lazy c values   4,073                    actionLabel.json            1,000,000
+Winner: boon lazy c
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              8,575                         medium.json            1,000,000
+gson                 9,638                         medium.json            1,000,000
+boon 1               7,995                         medium.json            1,000,000
+boon full            7,986                         medium.json            1,000,000
+boon lazy a          5,379                         medium.json            1,000,000
+boon lazy c          5,036                         medium.json            1,000,000
+boon ascii           9,804                         medium.json            1,000,000
+boon full a          10,511                        medium.json            1,000,000
+boon lazy c values   5,030                         medium.json            1,000,000
+Winner: boon lazy c values
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              1,952                           menu.json            1,000,000
+gson                 2,056                           menu.json            1,000,000
+boon 1               1,535                           menu.json            1,000,000
+boon full            1,497                           menu.json            1,000,000
+boon lazy a          1,005                           menu.json            1,000,000
+boon lazy c          903                             menu.json            1,000,000
+boon ascii           2,018                           menu.json            1,000,000
+boon full a          2,167                           menu.json            1,000,000
+boon lazy c values   975                             menu.json            1,000,000
+Winner: boon lazy c
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              3,165                           sgml.json            1,000,000
+gson                 3,232                           sgml.json            1,000,000
+boon 1               2,657                           sgml.json            1,000,000
+boon full            2,553                           sgml.json            1,000,000
+boon lazy a          1,721                           sgml.json            1,000,000
+boon lazy c          1,747                           sgml.json            1,000,000
+boon ascii           3,278                           sgml.json            1,000,000
+boon full a          3,495                           sgml.json            1,000,000
+boon lazy c values   1,808                           sgml.json            1,000,000
+Winner: boon lazy a
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              495                            small.json            1,000,000
+gson                 660                            small.json            1,000,000
+boon 1               284                            small.json            1,000,000
+boon full            276                            small.json            1,000,000
+boon lazy a          176                            small.json            1,000,000
+boon lazy c          147                            small.json            1,000,000
+boon ascii           379                            small.json            1,000,000
+boon full a          447                            small.json            1,000,000
+boon lazy c values   160                            small.json            1,000,000
+Winner: boon lazy c
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              16,004                        webxml.json            1,000,000
+gson                 20,982                        webxml.json            1,000,000
+boon 1               16,580                        webxml.json            1,000,000
+boon full            15,947                        webxml.json            1,000,000
+boon lazy a          10,676                        webxml.json            1,000,000
+boon lazy c          9,610                         webxml.json            1,000,000
+boon ascii           19,862                        webxml.json            1,000,000
+boon full a          21,652                        webxml.json            1,000,000
+boon lazy c values   9,603                         webxml.json            1,000,000
+Winner: boon lazy c values
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              3,435                         widget.json            1,000,000
+gson                 3,872                         widget.json            1,000,000
+boon 1               3,220                         widget.json            1,000,000
+boon full            3,147                         widget.json            1,000,000
+boon lazy a          1,931                         widget.json            1,000,000
+boon lazy c          1,716                         widget.json            1,000,000
+boon ascii           4,081                         widget.json            1,000,000
+boon full a          4,374                         widget.json            1,000,000
+boon lazy c values   1,764                         widget.json            1,000,000
+Winner: boon lazy c
+___________________________________________________________________________________
+```
+
+Notice that the scores for boon lazy a got better from the previous runs. Since this is the
+one that was doing the best, this is the one I picked to do full object serialization.
+
+BTW, Boon ASCII does so poorly due to a "bug" in java.lang.String whereby it copies the entire byte [] array not
+just the portion you specify. There are some workarounds, but I might end up dropping a few of these.
+I will probably keep 3. Boon original JSON parser. Lazy Encoder JSON parser (it is the really fast one), and will fix
+the ASCII lazy encoder (for the use case of working directly with byte buffers).
+
+
+
+Latest times after adding object serialization (Nov 28th 2013):
 
 ```
 Name                 Time                                 File           Iterations 

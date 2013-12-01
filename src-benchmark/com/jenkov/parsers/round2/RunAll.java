@@ -129,7 +129,16 @@ public class RunAll {
                         Map<String, Object> map =  JsonAsciiParser.fullParseMap ( bytes );
 
                     }
+                }, new BenchMark("boon lazy c values", times, fileContents) {
+
+                    @Override
+                    void run() {
+                         JsonLazyEncodeParser.fullParseMapUseValue ( chars );
+
+                    }
                 }
+
+
 
 
 
