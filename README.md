@@ -81,48 +81,38 @@ JACK 1 PASSED widget.json
 ```
 
 
-First cut of object serialization (Boon was winning 2 out of three, but I did something that slowed it down while trying to speed it up).
+Boon is now dominating the JSON Object serialization benchmarks. :)
+I needed a test to say "yeah boon is not slow". Now I have it. :)
+Boon does not have all of the bells and whistles but it can do Object serialization.
+(From JSON to Java at the moment, and from JSON to java.util.Map).
+
 
 ```
-Name                 Time                                 File           Iterations 
-jackson              1,230                       AllTypes.json              200,000 
-gson                 1,440                       AllTypes.json              200,000 
-jackson al2          1,027                       AllTypes.json              200,000 
-gson  al2            1,008                       AllTypes.json              200,000 
-jackson al3          882                         AllTypes.json              200,000 
-gson  al3            851                         AllTypes.json              200,000 
-boon lazy c 1        1,546                       AllTypes.json              200,000 
-boon lazy c 2        1,016                       AllTypes.json              200,000 
-boon lazy c 3        817                         AllTypes.json              200,000 
-boon full c 1        1,566                       AllTypes.json              200,000 
-boon full c 2        1,015                       AllTypes.json              200,000 
-boon full c 3        819                         AllTypes.json              200,000 
-Winner: boon lazy c 3 
-```
-
-Boon was doing better, but now it just wins some not 2/3rds.
-For background, read this article on how to write fast parsers.
-
-http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java
-
-Object serialization (early draft):
-
-```
+_______________________________ Full object ____________________________________________
 Name                 Time                                 File           Iterations
-jackson              1,241                       AllTypes.json              200,000
-gson                 1,417                       AllTypes.json              200,000
-jackson al2          1,040                       AllTypes.json              200,000
-gson  al2            984                         AllTypes.json              200,000
-jackson al3          886                         AllTypes.json              200,000
-gson  al3            844                         AllTypes.json              200,000
-boon lazy c 1        1,563                       AllTypes.json              200,000
-boon lazy c 2        1,011                       AllTypes.json              200,000
-boon lazy c 3        831                         AllTypes.json              200,000
-boon full c 1        1,572                       AllTypes.json              200,000
-boon full c 2        1,037                       AllTypes.json              200,000
-boon full c 3        842                         AllTypes.json              200,000
-Winner: boon lazy c 3
+jackson              8,589                       AllTypes.json            1,000,000
+gson                 9,224                       AllTypes.json            1,000,000
+boon lazy c 1        8,366                       AllTypes.json            1,000,000
+boon full c 1        8,534                       AllTypes.json            1,000,000
+Winner: boon lazy c 1
 ___________________________________________________________________________________
+_______________________________ No sub item, no sum list ____________________________________________
+Name                 Time                                 File           Iterations
+jackson al3          6,724                       AllTypes.json            1,000,000
+gson  al3            6,292                       AllTypes.json            1,000,000
+boon lazy c3         5,894                       AllTypes.json            1,000,000
+boon full c3         5,870                       AllTypes.json            1,000,000
+Winner: boon full c3
+___________________________________________________________________________________
+_______________________________ No sub list ____________________________________________
+Name                 Time                                 File           Iterations
+jackson al2          7,532                       AllTypes.json            1,000,000
+gson  al2            7,095                       AllTypes.json            1,000,000
+boon lazy c 2        6,480                       AllTypes.json            1,000,000
+boon full c 2        6,486                       AllTypes.json            1,000,000
+Winner: boon lazy c 2
+___________________________________________________________________________________
+
 ```
 
 Latest times after adding object serialization:
@@ -205,7 +195,6 @@ boon ascii           4,097                         widget.json            1,000,
 boon full a          4,391                         widget.json            1,000,000 
 Winner: boon lazy c 
 ___________________________________________________________________________________ 
->>>>>>> eef08fd56f24714500ba9ccbdc449c36de80e5d8
 ```
 
 Update for times:
