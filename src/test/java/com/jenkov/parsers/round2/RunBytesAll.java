@@ -2,8 +2,11 @@ package com.jenkov.parsers.round2;
 
 import static org.boon.Boon.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +18,6 @@ import org.apache.commons.io.FileUtils;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
-import org.boon.json.JsonLazyEncodeParser;
 import org.boon.json.JsonParser;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -107,7 +109,6 @@ public class RunBytesAll {
                     }
                 },
                 new BenchMarkIO ( "json-smart", times, fileName ) {
-                    ObjectMapper mapper = new ObjectMapper ();
                     byte[] bytes = readFileAsBytes(fileName);
 
                     @Override
@@ -125,8 +126,9 @@ public class RunBytesAll {
 
                     @Override
                     void run () {
-                        String string = new String(bytes, StandardCharsets.UTF_8);
-                        Map<String, Object> map = ( Map<String, Object> ) gson.fromJson ( string, Map.class );
+                        // GSON can't handle byte arrays directly, have to use a reader
+                        Reader reader = new InputStreamReader(new ByteArrayInputStream(bytes), StandardCharsets.UTF_8);
+                        Map<String, Object> map = ( Map<String, Object> ) gson.fromJson ( reader, Map.class );
                     }
                 },
                 new BenchMarkIO ( "boon 1   ", times, fileName ) {
@@ -135,6 +137,7 @@ public class RunBytesAll {
                     
                     @Override
                     void run () {
+                        // Boon can't handle neither bytes nor a reader
                         char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
                         Map<String, Object> map = JsonParser.parseMap ( chars );
 
@@ -146,6 +149,7 @@ public class RunBytesAll {
                     
                     @Override
                     void run () {
+                        // Boon can't handle neither bytes nor a reader
                         char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
                         Map<String, Object> map = JsonParser.fullParseMap ( chars );
 
