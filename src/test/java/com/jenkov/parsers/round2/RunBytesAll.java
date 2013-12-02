@@ -150,7 +150,7 @@ public class RunBytesAll {
                         Map<String, Object> map = JsonParser.fullParseMap ( chars );
 
                     }
-                },
+                }/*,
                 new BenchMarkIO ( "boon lazy  ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
@@ -160,7 +160,7 @@ public class RunBytesAll {
                         char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
                         JsonLazyEncodeParser.fullParseMap ( chars );
                     }
-                }
+                }*/
         );
     }
 }
