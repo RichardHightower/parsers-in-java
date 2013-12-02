@@ -116,16 +116,17 @@ public class RunIOAll {
                         Map<String, Object> map = JsonParser.fullParseMap ( chars );
 
                     }
-                },
-                new BenchMarkIO ( "boon lazy  ", times, fileName ) {
-
-                    @Override
-                    void run () {
-                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-                        JsonLazyEncodeParser.fullParseMap ( chars );
-
-                    }
                 }
+//                ,
+//                new BenchMarkIO ( "boon lazy  ", times, fileName ) {
+//
+//                    @Override
+//                    void run () {
+//                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
+//                        JsonLazyEncodeParser.fullParseMap ( chars );
+//
+//                    }
+//                }
 
         );
     }
