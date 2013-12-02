@@ -81,6 +81,65 @@ JACK 1 PASSED widget.json
 ```
 
 
+Dec 1st 2013
+I took a look at the way Jackson was doing int parsing. Nice. I borrowed this idea, and put it into Boon's String parsing lib,
+and now I use it for byte, short, long and int. I also expanded on the idea and applied it to float and double after some
+prototyping so earlier in the day... Boon was winning by a mere 100 ms due to the late bound magic of Value place holder.
+
+Now, Boon is winning by 1 second and sometimes 2 seconds so... It is way ahead.
+I have some elbow room to add feature w/o getting clobbered (for a bit) in performance.
+```
+
+_______________________________ Full object ____________________________________________
+Name                 Time                                 File           Iterations
+jackson              8,626                       AllTypes.json            1,000,000
+gson                 9,460                       AllTypes.json            1,000,000
+boon lazy c 1        7,455                       AllTypes.json            1,000,000
+boon full c 1        7,455                       AllTypes.json            1,000,000
+Winner: boon lazy c 1
+___________________________________________________________________________________
+
+```
+
+Beats gson by a full two seconds!  And Jackson by a full 1.2 seconds.
+
+
+```
+_______________________________ No sub item, no sum list ____________________________________________
+Name                 Time                                 File           Iterations
+jackson al3          6,943                       AllTypes.json            1,000,000
+gson  al3            6,445                       AllTypes.json            1,000,000
+boon lazy c3         5,669                       AllTypes.json            1,000,000
+boon full c3         5,680                       AllTypes.json            1,000,000
+Winner: boon lazy c3
+___________________________________________________________________________________
+```
+
+Here boon beats Jackson by 1.5 seconds and gson by 1.3.
+
+```
+_______________________________ No sub list ____________________________________________
+Name                 Time                                 File           Iterations
+jackson al2          7,583                       AllTypes.json            1,000,000
+gson  al2            7,188                       AllTypes.json            1,000,000
+boon lazy c 2        6,140                       AllTypes.json            1,000,000
+boon full c 2        6,141                       AllTypes.json            1,000,000
+Winner: boon lazy c 2
+___________________________________________________________________________________
+
+```
+
+
+Here boon beats Jackson by 1.4 seconds and gson by 1 second.
+
+Please note how fast GSON is. Everyone assumes Jackson is the fastest. I am not sure.
+
+GSON is pretty darn fast too. Boon currently screams.
+
+So now it is just clean up the API and make it more useable (it was always useable).
+
+
+
 Boon is now dominating the JSON Object serialization benchmarks. :)
 I needed a test to say "yeah boon is not slow". Now I have it. :)
 Boon does not have all of the bells and whistles but it can do Object serialization.
@@ -214,6 +273,8 @@ BTW, Boon ASCII does so poorly due to a "bug" in java.lang.String whereby it cop
 just the portion you specify. There are some workarounds, but I might end up dropping a few of these.
 I will probably keep 3. Boon original JSON parser. Lazy Encoder JSON parser (it is the really fast one), and will fix
 the ASCII lazy encoder (for the use case of working directly with byte buffers).
+
+
 
 
 
