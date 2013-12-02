@@ -27,7 +27,7 @@ public class RunAll {
 
             String fileContents = IO.read ( file );
 
-            List<BenchMark> benchMarks =  buildBenchMarkList( fileContents, 1_000_000 );
+            List<BenchMark> benchMarks =  buildBenchMarkList( fileContents, 100_000 );
 
 
             puts (Str.rpad ( "Name", 20, ' '),  Str.rpad("Time", 20, ' '),
@@ -59,6 +59,10 @@ public class RunAll {
     }
 
     private static List<BenchMark> buildBenchMarkList(final String fileContents, int times) {
+
+        if (fileContents.length () > 40_000) {
+            times /= 1_000;
+        }
         return Lists.list (
                 new BenchMark("jackson", times, fileContents) {
                     ObjectMapper mapper = new ObjectMapper();
