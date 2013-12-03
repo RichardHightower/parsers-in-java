@@ -9,10 +9,7 @@ import java.util.Map;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
-import org.boon.json.JsonAsciiParser;
-import org.boon.json.JsonLazyAsciiEncodeParser;
-import org.boon.json.JsonLazyEncodeParser;
-import org.boon.json.JsonParser;
+import org.boon.json.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -86,6 +83,14 @@ public class RunAll {
 
                     }
                 },
+                new BenchMark("boon char sequence   ", times, fileContents) {
+
+                    @Override
+                    void run() {
+                        Map<String, Object> map =  JsonParserArrayCharSequence.parseMap ( fileContents );
+
+                    }
+                },
                 new BenchMark("boon 1   ", times, fileContents) {
 
                     @Override
@@ -94,11 +99,20 @@ public class RunAll {
 
                     }
                 },
+
                 new BenchMark("boon full  ", times, fileContents) {
 
                     @Override
                     void run() {
-                        Map<String, Object> map =  JsonParser.fullParseMap ( chars );
+                        Map<String, Object> map =  JsonParser.parseMap ( chars );
+
+                    }
+                },
+                new BenchMark("boon full c ar ", times, fileContents) {
+
+                    @Override
+                    void run() {
+                        Map<String, Object> map =  JsonParserCharArray.parseMap ( chars );
 
                     }
                 },
@@ -127,14 +141,7 @@ public class RunAll {
 
                     }
                 },
-                new BenchMark("boon full a", times, fileContents) {
-
-                    @Override
-                    void run() {
-                        Map<String, Object> map =  JsonAsciiParser.fullParseMap ( bytes );
-
-                    }
-                }, new BenchMark("boon lazy c values", times, fileContents) {
+                 new BenchMark("boon lazy c values", times, fileContents) {
 
                     @Override
                     void run() {

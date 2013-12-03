@@ -19,9 +19,7 @@ import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
 import org.boon.criteria.Sort;
-import org.boon.json.JsonAsciiParser;
-import org.boon.json.JsonLazyEncodeParser;
-import org.boon.json.JsonParser;
+import org.boon.json.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -114,7 +112,7 @@ public class RunBytesAll {
                     @Override
                     void run () {
                         try {
-                            Map<String, Object> map = ( Map<String, Object> ) new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE).parse(bytes);
+                            Map<String, Object> map = ( Map<String, Object> ) new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE).parse ( bytes );
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -149,27 +147,36 @@ public class RunBytesAll {
 
                     }
                 },
-                new BenchMarkIO ( "boon full  ", times, fileName ) {
+                new BenchMarkIO ( "boon char sequence   ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
-                    
+
                     @Override
                     void run () {
-                        // Boon can't handle neither bytes nor a reader
 
+                        JsonParserArrayCharSequence.parseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
+                    }
+                },
+
+                new BenchMarkIO ( "boon c ar   ", times, fileName ) {
+
+                    byte[] bytes = readFileAsBytes(fileName);
+
+                    @Override
+                    void run () {
                         try (final InputStreamReader reader = new InputStreamReader ( new ByteArrayInputStream ( bytes ) )) {
 
                             char [] chars = new char[bytes.length];
                             reader.read ( chars );
-                            JsonParser.fullParseMap ( chars );
+                            JsonParserCharArray.fullParse ( chars );
 
                         }catch ( IOException ex ) {
 
                         }
 
-
                     }
                 },
+
                 new BenchMarkIO ( "boon ascii  ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
