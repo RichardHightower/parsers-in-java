@@ -107,15 +107,15 @@ order:       boon ascii     gson           boon original  boon char sequence  ja
 Boon 1st, 3rd, 4th
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
-jackson-object       977                     citm_catalog.json                  100
-gson                 895                     citm_catalog.json                  100
-boon original        933                     citm_catalog.json                  100
-boon char sequence   1,516                   citm_catalog.json                  100
-boon ascii           884                     citm_catalog.json                  100
-Winner: boon ascii
-order:       boon ascii     gson           boon original  jackson-object  boon char sequence
+jackson              1,577                   citm_catalog.json                  100
+gson                 1,048                   citm_catalog.json                  100
+boon original        1,156                   citm_catalog.json                  100
+boon char sequence   3,769                   citm_catalog.json                  100
+boon ascii           1,281                   citm_catalog.json                  100
+Winner: gson
+order:       gson           boon original  boon ascii     jackson        boon char sequence
 
-Boon 1st, 3rd, 5th
+Boon 2nd, 3rd, 5th
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              4,016                         medium.json              100,000
@@ -192,6 +192,10 @@ ________________________________________________________________________________
 I am pretty sure I can make boon ascii and boon char sequence a lot faster when I get some time.
 I think I can shave another 20% to 30% off of their times.
 Boon original is fully optimized. All of the above times are full parse mode.
+
+My new best friend from France sent me a patch so it already does better than the above.
+So look at the above, and imagine boon winning in a few more cases.... :)
+
 (There is a skip string encoding method of boon that is faster, but that is cheating).
 All of my optimization and profiling went into object serialization so I have not spent any time
 tuning these to a great amount. Boon original is faster because I copied the techniques
