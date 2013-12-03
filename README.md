@@ -18,6 +18,7 @@ and was able to tweak performance by 20x to 25x for Boon parser.
 Then I added the performance enhancements that I dreamed about, but never implemented.
 
 It appears it is now faster than Jackson and GSON for the use case of turning a JSON string into a java.util.Map.
+(now with I/O, without I/O, and directo from byte [], faster, faster, and faster).
 
 Boon allows turning a map into a Java object so it can do object serializaiton of JSON, 
 but you have to first convert JSON into Map and then Map into Object.
@@ -25,17 +26,23 @@ but you have to first convert JSON into Map and then Map into Object.
 I have not performance tuned full Object serialization this and I am sure GSON and Jackson must be faster.
 Boon plans on supporting this so the plan is for it be very fast if not the fastest (eventually).
 
-But tune in later for more benchmarks.
+Update: I have performance tuned the hell out of Boon object serialization and it is quite a bit faster than GSON and Jackson! I put blood sweat, tears, profiling and code into it. 
 
 For now, it is just the fastest at serialization to a map.
 
+Update: more time was spent on Object serailization than to java.util.Map conversion. I think it can be even faster.
+
 Boon does not plan on being a pull parser or a tree parser or a event parser... ever.
 Boon does JSON but not all the ins and outs.
-If you want a pull parser, use Jackson or GSON.
-If you want a tree view parser, use Jackson or GSON.
+If you want a pull parser, use Jackson or GSON or json-smart.
+If you want a tree view parser, use Jackson or GSON or json-smart.
 
 Boon is optimized for REST calls and Websocket messages. It is not a generic JSON parser.
 I don't want it to be. I don't care. 
+
+Boon JSON parsing... would not be as good as it is without some help from my new brother from France.
+He is my muse and has also improved the hell out of the benchmarking. 
+Thank you sir!
 
 parsers-in-java
 ===============
