@@ -107,15 +107,15 @@ order:       boon ascii     gson           boon original  boon char sequence  ja
 Boon 1st, 3rd, 4th
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
-jackson              1,577                   citm_catalog.json                  100
-gson                 1,048                   citm_catalog.json                  100
-boon original        1,156                   citm_catalog.json                  100
-boon char sequence   3,769                   citm_catalog.json                  100
-boon ascii           1,281                   citm_catalog.json                  100
-Winner: gson
-order:       gson           boon original  boon ascii     jackson        boon char sequence
+jackson-object       977                     citm_catalog.json                  100
+gson                 895                     citm_catalog.json                  100
+boon original        933                     citm_catalog.json                  100
+boon char sequence   1,516                   citm_catalog.json                  100
+boon ascii           884                     citm_catalog.json                  100
+Winner: boon ascii
+order:       boon ascii     gson           boon original  jackson-object  boon char sequence
 
-Boon 2nd, 3rd, 5th
+Boon 1st, 3rd, 5th
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              4,016                         medium.json              100,000
