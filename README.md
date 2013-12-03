@@ -3,6 +3,11 @@ When I first read the article, this was not the case.
 I had some ideas for speeding up the JSON parsing, but never seemed to need to (it seemed fast enough).
 Then this article came out, http://www.infoq.com/articles/HIgh-Performance-Parsers-in-Java.
 
+
+If you want independent confirmation of Boon's speed:
+"Jackson and Boon are basically equivalent, Boon being slightly faster. JSON Parsing." Whoot!
+https://github.com/gatling/json-parsers-benchmark
+
 I downloaded the source for the benchmark, and ran the benchmarks.
 
 Then I tweaked Boon JSON parser to be faster than GSON.
