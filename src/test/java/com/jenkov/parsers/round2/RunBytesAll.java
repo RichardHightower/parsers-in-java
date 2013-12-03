@@ -155,7 +155,7 @@ public class RunBytesAll {
                     @Override
                     void run () {
 
-                        JsonParserArrayCharSequence.fullParseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
+                        JsonParserCharSequence.fullParseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
                     }
                 },
                 new BenchMarkIO ( "boon ascii  ", times, fileName ) {

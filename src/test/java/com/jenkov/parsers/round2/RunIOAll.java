@@ -5,17 +5,20 @@ import static org.boon.Boon.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.json.JsonAsciiParser;
 import org.boon.json.JsonLazyEncodeParser;
 import org.boon.json.JsonParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import org.boon.json.JsonParserCharSequence;
 
 public class RunIOAll {
 
@@ -72,7 +75,7 @@ public class RunIOAll {
                     @Override
                     void run () {
                         try( BufferedReader fis= new BufferedReader ( new FileReader ( fileName )) ) {
-                            Map<String, Object> map = ( Map<String, Object> ) mapper.readValue ( fis, Map.class );
+                            mapper.readValue ( fis, Map.class );
                         } catch ( IOException e ) {
                             e.printStackTrace ();
                         }
@@ -84,9 +87,8 @@ public class RunIOAll {
                     @Override
                     void run () {
 
-                        ;
                         try( FileReader fis= new FileReader ( fileName ) ) {
-                            Map<String, Object> map = ( Map<String, Object> ) gson.fromJson ( fis, Map.class );
+                            gson.fromJson ( fis, Map.class );
 
 
                         } catch ( IOException e ) {
@@ -97,36 +99,38 @@ public class RunIOAll {
 
                     }
                 },
-                new BenchMarkIO ( "boon 1   ", times, fileName ) {
+                new BenchMarkIO ( "boon original  ", times, fileName ) {
 
                     @Override
                     void run () {
                         final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-
-                        Map<String, Object> map = JsonParser.parseMap ( chars );
+                        JsonParser.fullParseMap ( chars );
 
                     }
                 },
-                new BenchMarkIO ( "boon full  ", times, fileName ) {
+                new BenchMarkIO ( "boon char sequence  ", times, fileName ) {
 
                     @Override
                     void run () {
-                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
+                        final String str = IO.read ( IO.path ( fileName ) );
+                        JsonParserCharSequence.fullParseMap ( str );
 
-                        Map<String, Object> map = JsonParser.fullParseMap ( chars );
+                    }
+                },
+                new BenchMarkIO ( "boon char sequence  ", times, fileName ) {
+
+                    @Override
+                    void run () {
+                        try {
+                            byte[] buf  = IO.input ( Files.newInputStream ( IO.path ( fileName ) ) );
+
+                            JsonAsciiParser.fullParseMap (buf);
+                        } catch ( IOException e ) {
+                            e.printStackTrace ();
+                        }
 
                     }
                 }
-//                ,
-//                new BenchMarkIO ( "boon lazy  ", times, fileName ) {
-//
-//                    @Override
-//                    void run () {
-//                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-//                        JsonLazyEncodeParser.fullParseMap ( chars );
-//
-//                    }
-//                }
 
         );
     }

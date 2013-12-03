@@ -87,7 +87,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        JsonParserArrayCharSequence.fullParseMap ( fileContents );
+                        JsonParserCharSequence.fullParseMap ( fileContents );
 
                     }
                 },
@@ -96,14 +96,6 @@ public class RunAll {
                     @Override
                     void run() {
                        JsonParser.fullParseMap ( chars );
-
-                    }
-                },
-                new BenchMark("boon lazy char", times, fileContents) {
-
-                    @Override
-                    void run() {
-                        JsonLazyEncodeParser.fullParseMap ( chars );
 
                     }
                 },
