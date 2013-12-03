@@ -81,6 +81,372 @@ JACK 1 PASSED widget.json
 ```
 
 
+
+Dec 3rd 2013
+My new friend from France has been helping me out. Now there are more tests.
+I got rid of a few parsers and wrote a few more.
+The Boon original has been optimized quite a bit.
+
+With I/O included
+
+```
+Name                 Time                                 File           Iterations
+jackson              5,044                    actionLabel.json              100,000
+gson                 3,904                    actionLabel.json              100,000
+boon original        3,941                    actionLabel.json              100,000
+boon char sequence   4,542                    actionLabel.json              100,000
+boon ascii           2,258                    actionLabel.json              100,000
+Winner: boon ascii
+order:       boon ascii     gson           boon original  boon char sequence  jackson
+
+Boon 1st, 3rd, 4th
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              1,577                   citm_catalog.json                  100
+gson                 1,048                   citm_catalog.json                  100
+boon original        1,156                   citm_catalog.json                  100
+boon char sequence   3,769                   citm_catalog.json                  100
+boon ascii           1,281                   citm_catalog.json                  100
+Winner: gson
+order:       gson           boon original  boon ascii     jackson        boon char sequence
+
+Boon 2nd, 3rd, 5th
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              4,016                         medium.json              100,000
+gson                 3,661                         medium.json              100,000
+boon original        3,011                         medium.json              100,000
+boon char sequence   5,709                         medium.json              100,000
+boon ascii           2,949                         medium.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon original  gson           jackson        boon char sequence
+
+Boon 1st, 2nd, 5th (Boon Char Sequence is new and needs some tuning)
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              2,417                           menu.json              100,000
+gson                 2,119                           menu.json              100,000
+boon original        1,899                           menu.json              100,000
+boon char sequence   2,184                           menu.json              100,000
+boon ascii           1,218                           menu.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon original  gson           boon char sequence  jackson
+
+Boon 1st, 2nd, 4th
+
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              2,751                           sgml.json              100,000
+gson                 2,250                           sgml.json              100,000
+boon original        1,988                           sgml.json              100,000
+boon char sequence   2,717                           sgml.json              100,000
+boon ascii           1,424                           sgml.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon original  gson           boon char sequence  jackson
+
+Boon 1st, 2nd, 4th
+
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              1,988                          small.json              100,000
+gson                 1,780                          small.json              100,000
+boon original        1,668                          small.json              100,000
+boon char sequence   1,569                          small.json              100,000
+boon ascii           1,002                          small.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon char sequence  boon original  gson           jackson
+
+
+Boon 1st, 2nd, 3rd
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              4,860                         webxml.json              100,000
+gson                 4,759                         webxml.json              100,000
+boon original        4,452                         webxml.json              100,000
+boon char sequence   8,738                         webxml.json              100,000
+boon ascii           4,443                         webxml.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon original  gson           jackson        boon char sequence
+
+
+Boon 1st, 2nd, 5th
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              2,608                         widget.json              100,000
+gson                 2,296                         widget.json              100,000
+boon original        2,015                         widget.json              100,000
+boon char sequence   2,734                         widget.json              100,000
+boon ascii           1,483                         widget.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon original  gson           jackson        boon char sequence
+
+Boon 1st, 2nd, 5th
+___________________________________________________________________________________
+```
+
+I am pretty sure I can make boon ascii and boon char sequence a lot faster when I get some time.
+I think I can shave another 20% to 30% off of their times.
+Boon original is fully optimized. All of the above times are full parse mode.
+(There is a skip string encoding method of boon that is faster, but that is cheating).
+All of my optimization and profiling went into object serialization so I have not spent any time
+tuning these to a great amount. Boon original is faster because I copied the techniques
+from the object serialization but did not re-tune it for this use case.
+What I am saying is that I think they can be tuned to go much faster.
+
+
+With that said... boon wins in every category below. :)
+
+No I/O buffer of choice:
+
+
+```
+Name                 Time                                 File           Iterations
+jackson              1,539                    actionLabel.json              100,000
+gson                 1,167                    actionLabel.json              100,000
+boon char sequence   1,080                    actionLabel.json              100,000
+boon original        743                      actionLabel.json              100,000
+boon ascii           979                      actionLabel.json              100,000
+Winner: boon original
+order:       boon original  boon ascii     boon char sequence gson           jackson
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              1,358                   citm_catalog.json                  100
+gson                 830                     citm_catalog.json                  100
+boon char sequence   1,120                   citm_catalog.json                  100
+boon original        823                     citm_catalog.json                  100
+boon ascii           929                     citm_catalog.json                  100
+Winner: boon original
+order:       boon original  gson           boon ascii     boon char sequence jackson
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              1,409                         medium.json              100,000
+gson                 1,295                         medium.json              100,000
+boon char sequence   1,386                         medium.json              100,000
+boon original        985                           medium.json              100,000
+boon ascii           1,509                         medium.json              100,000
+Winner: boon original
+order:       boon original  gson           boon char sequencejackson        boon ascii
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              309                             menu.json              100,000
+gson                 282                             menu.json              100,000
+boon char sequence   275                             menu.json              100,000
+boon original        194                             menu.json              100,000
+boon ascii           274                             menu.json              100,000
+Winner: boon original
+order:       boon original  boon ascii     boon char sequence gson           jackson
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              480                             sgml.json              100,000
+gson                 416                             sgml.json              100,000
+boon char sequence   450                             sgml.json              100,000
+boon original        357                             sgml.json              100,000
+boon ascii           450                             sgml.json              100,000
+Winner: boon original
+order:       boon original  gson           boon char sequence boon ascii     jackson
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              104                            small.json              100,000
+gson                 86                             small.json              100,000
+boon char sequence   55                             small.json              100,000
+boon original        38                             small.json              100,000
+boon ascii           51                             small.json              100,000
+Winner: boon original
+order:       boon original  boon ascii     boon char sequence gson           jackson
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              2,544                         webxml.json              100,000
+gson                 2,683                         webxml.json              100,000
+boon char sequence   2,750                         webxml.json              100,000
+boon original        2,013                         webxml.json              100,000
+boon ascii           3,151                         webxml.json              100,000
+Winner: boon original
+order:       boon original  jackson        gson           boon char sequence boon ascii
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson              554                           widget.json              100,000
+gson                 528                           widget.json              100,000
+boon char sequence   550                           widget.json              100,000
+boon original        387                           widget.json              100,000
+boon ascii           542                           widget.json              100,000
+Winner: boon original
+order:       boon original  gson           boon ascii     boon char sequence jackson
+___________________________________________________________________________________
+```
+
+
+Now what if you don't have a stream, but you just have a byte[]. How does boon do?
+Quite well thanks! :)
+
+Straight from byte[]
+```
+Name                 Time                                 File           Iterations
+jackson-object       1,279                    actionLabel.json              100,000
+json-smart           945                      actionLabel.json              100,000
+gson                 1,146                    actionLabel.json              100,000
+boon original        871                      actionLabel.json              100,000
+boon char sequence   1,089                    actionLabel.json              100,000
+boon ascii           906                      actionLabel.json              100,000
+Winner: boon original
+order:       boon original  boon ascii     json-smart     boon char sequence gson           jackson-object
+
+1st, 2nd and 4th place!
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       1,014                   citm_catalog.json                  100
+json-smart           1,015                   citm_catalog.json                  100
+gson                 882                     citm_catalog.json                  100
+boon original        963                     citm_catalog.json                  100
+boon char sequence   1,606                   citm_catalog.json                  100
+boon ascii           913                     citm_catalog.json                  100
+Winner: gson
+order:       gson           boon ascii     boon original  jackson-object json-smart     boon char sequence
+
+Damn you GSON! 2nd, 3rd and 5th place
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       1,203                         medium.json              100,000
+json-smart           1,171                         medium.json              100,000
+gson                 1,429                         medium.json              100,000
+boon original        1,184                         medium.json              100,000
+boon char sequence   1,394                         medium.json              100,000
+boon ascii           1,417                         medium.json              100,000
+Winner: json-smart
+order:       json-smart     boon original  jackson-object boon char sequence boon ascii     gson
+
+Damn you json-smart! 2nd, 3rd and 4th place
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       246                             menu.json              100,000
+json-smart           252                             menu.json              100,000
+gson                 363                             menu.json              100,000
+boon original        280                             menu.json              100,000
+boon char sequence   285                             menu.json              100,000
+boon ascii           232                             menu.json              100,000
+Winner: boon ascii
+order:       boon ascii     jackson-object json-smart     boon original  boon char sequence gson
+
+1st, 3rd and 4th place
+
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       412                             sgml.json              100,000
+json-smart           421                             sgml.json              100,000
+gson                 733                             sgml.json              100,000
+boon original        620                             sgml.json              100,000
+boon char sequence   538                             sgml.json              100,000
+boon ascii           449                             sgml.json              100,000
+Winner: jackson-object
+order:       jackson-object json-smart     boon ascii     boon char sequence boon original  gson
+
+Jackson! Damn you! 3rd, 4th, 5th place
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       64                             small.json              100,000
+json-smart           71                             small.json              100,000
+gson                 182                            small.json              100,000
+boon original        132                            small.json              100,000
+boon char sequence   59                             small.json              100,000
+boon ascii           42                             small.json              100,000
+Winner: boon ascii
+order:       boon ascii     boon char sequence jackson-object json-smart     boon original  gson
+
+Boon baby! Sonic boon! 1st, 2nd, 4th place
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       2,166                         webxml.json              100,000
+json-smart           2,260                         webxml.json              100,000
+gson                 2,763                         webxml.json              100,000
+boon original        2,329                         webxml.json              100,000
+boon char sequence   2,945                         webxml.json              100,000
+boon ascii           2,904                         webxml.json              100,000
+Winner: jackson-object
+order:       jackson-object json-smart     boon original  gson           boon ascii     boon char sequence
+
+Jackson and json-smart kicking some serious behind! 3rd, 4th and 5th
+
+___________________________________________________________________________________
+Name                 Time                                 File           Iterations
+jackson-object       435                           widget.json              100,000
+json-smart           558                           widget.json              100,000
+gson                 593                           widget.json              100,000
+boon original        525                           widget.json              100,000
+boon char sequence   558                           widget.json              100,000
+boon ascii           489                           widget.json              100,000
+Winner: jackson-object
+order:       jackson-object boon ascii     boon original  json-smart     boon char sequence gson
+___________________________________________________________________________________
+
+
+ Jackson! Grrr... 1st, 2nd, 4th place
+
+```
+
+
+So boon does well for not being profiled for these use cases.
+I know boon ascii and boon char sequence can be optimized (there are a few buffer copies that I can get rid of).
+I think with a bit of elbow grease Boon, although it does well now, can do much better.
+I am sure it can win (for at least 15 minutes until Jackson, and Json-smart optimize theirs) in every category.
+
+Ok so for the case that I did optimize and profile boon for, how does it fair.
+This is the one I put blood, sweat and tears into. This is the one that matters the most for boon.
+
+Object Serialization...
+
+```
+
+_______________________________ Full object ____________________________________________
+Name                 Time                                 File           Iterations
+jackson              13,289                      AllTypes.json            1,000,000
+gson                 11,092                      AllTypes.json            1,000,000
+boon                 8,851                       AllTypes.json            1,000,000
+boon full            8,926                       AllTypes.json            1,000,000
+Winner: boon
+order:       boon           boon full      gson           jackson
+___________________________________________________________________________________
+_______________________________ No sub item, no sum list ____________________________________________
+Name                 Time                                 File           Iterations
+jackson al3          11,230                      AllTypes.json            1,000,000
+gson  al3            7,565                       AllTypes.json            1,000,000
+boon al3             6,653                       AllTypes.json            1,000,000
+boon al3 full        6,638                       AllTypes.json            1,000,000
+Winner: boon al3 full
+order:       boon al3 full  boon al3       gson  al3      jackson al3
+___________________________________________________________________________________
+_______________________________ No sub list ____________________________________________
+Name                 Time                                 File           Iterations
+jackson al2          12,035                      AllTypes.json            1,000,000
+gson  al2            8,599                       AllTypes.json            1,000,000
+boon al2 half        7,216                       AllTypes.json            1,000,000
+boon al2 full        7,287                       AllTypes.json            1,000,000
+Winner: boon al2 half
+order:       boon al2 half  boon al2 full  gson  al2      jackson al2
+___________________________________________________________________________________
+
+```
+
+The one I actually spent time on (a lot of time) wins in every category.
+I was expecting to get more competition from Jackson and less from GSON.
+GSON was a tougher nut to crack.
+If it wasn't for GSON, I would live a few years longer.
+Boon and Gson were neck and neck,
+what put Boon over the top was looking at how Jackson handled numbers, and then duplicated it.
+
+I guess what I am saying is the guys at GSON, Jackson and json-smart are good guys, and their software is good stuff.
+I have used Jackson in anger and have very high respect for it.
+Boon is not a JSON parsing project.
+Boon is something else.
+It includes JSON, but every time I mentioned JSON the response I always got was "why don't you just use Jackson".
+My answer was because I want to use JSON in different ways, and want flexibility.
+Then I would get : "but Jackson is so fast".
+This is why I spent sometime tuning Boon's JSON support.
+I figure if it is a little faster now, I can focus on other stuff, and let the JSON guys beat it.
+It was fastest once.
+
+That said... there is some low hanging fruit, and I might do a round of tuning in the JSON to java.util.Map arena.
+
+
+
 Dec 1st 2013
 I took a look at the way Jackson was doing int parsing. Nice. I borrowed this idea, and put it into Boon's String parsing lib,
 and now I use it for byte, short, long and int. I also expanded on the idea and applied it to float and double after some

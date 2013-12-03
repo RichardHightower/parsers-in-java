@@ -9,6 +9,7 @@ import java.util.List;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.criteria.Sort;
 import org.boon.json.JsonLazyEncodeParser;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -72,6 +73,17 @@ public class ObjectInputSerialization {
         }
 
         puts ("Winner:", winner);
+
+        Sort.asc ( "finalTime" ).sort ( benchMarks );
+
+        System.out.print (Str.rpad("order:", 13, ' '));
+
+        for (BenchMark benchMark: benchMarks) {
+            System.out.print (Str.rpad(benchMark.name, 15, ' '));
+        }
+        System.out.println();
+
+
 
         puts("___________________________________________________________________________________");
 
@@ -159,7 +171,7 @@ public class ObjectInputSerialization {
                 },
 
 
-                new BenchMark ( "boon lazy c 1", times, fileContents ) {
+                new BenchMark ( "boon ", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -168,7 +180,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon lazy c 2", times, fileContents ) {
+                new BenchMark ( "boon ", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -177,7 +189,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon lazy c 3", times, fileContents ) {
+                new BenchMark ( "boon ", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -187,7 +199,7 @@ public class ObjectInputSerialization {
                     }
                 },
 
-                new BenchMark ( "boon full c 1", times, fileContents ) {
+                new BenchMark ( "boon at", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -196,7 +208,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon full c 2", times, fileContents ) {
+                new BenchMark ( "boon at2", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -205,7 +217,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon full c 3", times, fileContents ) {
+                new BenchMark ( "boon at3", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -250,7 +262,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon lazy c 2", times, fileContents ) {
+                new BenchMark ( "boon al2 half", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -259,7 +271,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon full c 2", times, fileContents ) {
+                new BenchMark ( "boon al2 full", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -300,7 +312,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon lazy c3", times, fileContents ) {
+                new BenchMark ( "boon al3", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -309,7 +321,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon full c3", times, fileContents ) {
+                new BenchMark ( "boon al3 full", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -348,7 +360,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon lazy c 1", times, fileContents ) {
+                new BenchMark ( "boon ", times, fileContents ) {
 
                     @Override
                     void run() {
@@ -357,7 +369,7 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon full c 1", times, fileContents ) {
+                new BenchMark ( "boon full", times, fileContents ) {
 
                     @Override
                     void run() {
