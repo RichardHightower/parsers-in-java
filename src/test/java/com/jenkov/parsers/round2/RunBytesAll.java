@@ -18,6 +18,9 @@ import org.apache.commons.io.FileUtils;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.criteria.Sort;
+import org.boon.json.JsonAsciiParser;
+import org.boon.json.JsonLazyEncodeParser;
 import org.boon.json.JsonParser;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,6 +52,7 @@ public class RunBytesAll {
 
             for (BenchMarkIO benchMark : benchMarks) {
                 benchMark.test ();
+                System.gc ();
                 if (benchMark.finalTime < min) {
 
                     min = benchMark.finalTime;
@@ -62,7 +66,16 @@ public class RunBytesAll {
 
             puts ("Winner:", winner);
 
-            puts("___________________________________________________________________________________");
+            Sort.asc ("finalTime").sort ( benchMarks );
+
+            System.out.print (Str.rpad("order:", 10, ' '));
+
+            for (BenchMarkIO benchMarkIO: benchMarks) {
+                System.out.print (Str.rpad(benchMarkIO.name, 15, ' '));
+            }
+            System.out.println();
+
+            puts ( "___________________________________________________________________________________" );
         }
 
     }
@@ -90,19 +103,6 @@ public class RunBytesAll {
                     void run () {
                         try {
                             Map<String, Object> map = ( Map<String, Object> ) mapper.readValue ( bytes, Map.class );
-                        } catch ( IOException e ) {
-                            e.printStackTrace ();
-                        }
-                    }
-                },
-                new BenchMarkIO ( "jackson-ast", times, fileName ) {
-                    ObjectMapper mapper = new ObjectMapper ();
-                    byte[] bytes = readFileAsBytes(fileName);
-
-                    @Override
-                    void run () {
-                        try {
-                            JsonNode node =  mapper.readTree ( bytes );
                         } catch ( IOException e ) {
                             e.printStackTrace ();
                         }
@@ -137,9 +137,15 @@ public class RunBytesAll {
                     
                     @Override
                     void run () {
-                        // Boon can't handle neither bytes nor a reader
-                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
-                        Map<String, Object> map = JsonParser.parseMap ( chars );
+                        try (final InputStreamReader reader = new InputStreamReader ( new ByteArrayInputStream ( bytes ) )) {
+
+                            char [] chars = new char[bytes.length];
+                            reader.read ( chars );
+                            JsonParser.parseMap ( chars );
+
+                        }catch ( IOException ex ) {
+
+                        }
 
                     }
                 },
@@ -150,21 +156,72 @@ public class RunBytesAll {
                     @Override
                     void run () {
                         // Boon can't handle neither bytes nor a reader
-                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
-                        Map<String, Object> map = JsonParser.fullParseMap ( chars );
+
+                        try (final InputStreamReader reader = new InputStreamReader ( new ByteArrayInputStream ( bytes ) )) {
+
+                            char [] chars = new char[bytes.length];
+                            reader.read ( chars );
+                            JsonParser.fullParseMap ( chars );
+
+                        }catch ( IOException ex ) {
+
+                        }
+
 
                     }
-                }/*,
-                new BenchMarkIO ( "boon lazy  ", times, fileName ) {
+                },
+                new BenchMarkIO ( "boon ascii  ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
-                    
+
                     @Override
                     void run () {
-                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
-                        JsonLazyEncodeParser.fullParseMap ( chars );
+
+                            JsonAsciiParser.fullParseMap ( bytes );
+
+
                     }
-                }*/
+                },
+                new BenchMarkIO ( "boon a full  ", times, fileName ) {
+
+                    byte[] bytes = readFileAsBytes(fileName);
+
+                    @Override
+                    void run () {
+
+                        JsonAsciiParser.parseMap ( bytes );
+
+
+                    }
+                }
+
+
+//                new BenchMarkIO ( "boon lazy  ", times, fileName ) {
+//
+//                    byte[] bytes = readFileAsBytes(fileName);
+//
+//                    @Override
+//                    void run () {
+//                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
+//                        //This ok for short lived maps like per request or as long as you keep the map together
+//                        //it only matters when you plan on keeping it around for a while, and you
+//                        //are dealing with really large arrays. Jackson parse tree does similar things so...
+//                        JsonLazyEncodeParser.fullParseMap ( chars );
+//                    }
+//                },
+//                new BenchMarkIO ( "boon lazy full  ", times, fileName ) {
+//
+//                    byte[] bytes = readFileAsBytes(fileName);
+//
+//                    @Override
+//                    void run () {
+//                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
+//                        //This ok for short lived maps like per request or as long as you keep the map together
+//                        //it only matters when you plan on keeping it around for a while, and you
+//                        //are dealing with really large arrays. Jackson parse tree does similar things so...
+//                        JsonLazyEncodeParser.parseMap ( chars );
+//                    }
+//                }
         );
     }
 }
