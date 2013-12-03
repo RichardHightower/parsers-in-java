@@ -68,7 +68,7 @@ public class RunAll {
                     @Override
                     void run() {
                         try {
-                            Map<String, Object> map = (Map<String, Object>) mapper.readValue ( fileContents, Map.class);
+                             mapper.readValue ( fileContents, Map.class);
                         } catch ( IOException e ) {
                             e.printStackTrace ();
                         }
@@ -79,57 +79,31 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        Map<String, Object> map = (Map<String, Object>) gson.fromJson (fileContents, Map.class );
+                         gson.fromJson (fileContents, Map.class );
 
                     }
                 },
-                new BenchMark("boon char sequence   ", times, fileContents) {
+                new BenchMark("boon char sequence", times, fileContents) {
 
                     @Override
                     void run() {
-                        Map<String, Object> map =  JsonParserArrayCharSequence.parseMap ( fileContents );
+                        JsonParserArrayCharSequence.fullParseMap ( fileContents );
 
                     }
                 },
-                new BenchMark("boon 1   ", times, fileContents) {
+                new BenchMark("boon original ", times, fileContents) {
 
                     @Override
                     void run() {
-                        Map<String, Object> map =  JsonParser.parseMap ( chars );
+                       JsonParser.fullParseMap ( chars );
 
                     }
                 },
-
-                new BenchMark("boon full  ", times, fileContents) {
-
-                    @Override
-                    void run() {
-                        Map<String, Object> map =  JsonParser.parseMap ( chars );
-
-                    }
-                },
-                new BenchMark("boon full c ar ", times, fileContents) {
+                new BenchMark("boon lazy char", times, fileContents) {
 
                     @Override
                     void run() {
-                        Map<String, Object> map =  JsonParserCharArray.parseMap ( chars );
-
-                    }
-                },
-
-                new BenchMark("boon lazy a", times, fileContents) {
-
-                    @Override
-                    void run() {
-                        Map<String, Object> map =  JsonLazyAsciiEncodeParser.parseMap ( bytes );
-
-                    }
-                },
-                new BenchMark("boon lazy c", times, fileContents) {
-
-                    @Override
-                    void run() {
-                        Map<String, Object> map =  JsonLazyEncodeParser.parseMap ( chars );
+                        JsonLazyEncodeParser.fullParseMap ( chars );
 
                     }
                 },
@@ -137,21 +111,10 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        Map<String, Object> map =  JsonAsciiParser.parseMap ( bytes );
-
-                    }
-                },
-                 new BenchMark("boon lazy c values", times, fileContents) {
-
-                    @Override
-                    void run() {
-                         JsonLazyEncodeParser.fullParseMapUseValue ( chars );
+                        JsonAsciiParser.fullParseMap ( bytes );
 
                     }
                 }
-
-
-
 
 
 

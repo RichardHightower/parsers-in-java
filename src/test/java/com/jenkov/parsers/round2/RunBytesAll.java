@@ -100,7 +100,7 @@ public class RunBytesAll {
                     @Override
                     void run () {
                         try {
-                            Map<String, Object> map = ( Map<String, Object> ) mapper.readValue ( bytes, Map.class );
+                            mapper.readValue ( bytes, Map.class );
                         } catch ( IOException e ) {
                             e.printStackTrace ();
                         }
@@ -112,7 +112,7 @@ public class RunBytesAll {
                     @Override
                     void run () {
                         try {
-                            Map<String, Object> map = ( Map<String, Object> ) new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE).parse ( bytes );
+                            new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE).parse ( bytes );
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -129,54 +129,35 @@ public class RunBytesAll {
                         Map<String, Object> map = ( Map<String, Object> ) gson.fromJson ( reader, Map.class );
                     }
                 },
-                new BenchMarkIO ( "boon 1   ", times, fileName ) {
+                new BenchMarkIO ( "boon original", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
                     
                     @Override
                     void run () {
-                        try (final InputStreamReader reader = new InputStreamReader ( new ByteArrayInputStream ( bytes ) )) {
+                        try (final InputStreamReader reader = new InputStreamReader (
+                                new ByteArrayInputStream ( bytes ) )) {
 
                             char [] chars = new char[bytes.length];
                             reader.read ( chars );
-                            JsonParser.parseMap ( chars );
+                            JsonParser.fullParseMap ( chars );
 
                         }catch ( IOException ex ) {
-
+                             ex.printStackTrace ();
                         }
 
                     }
                 },
-                new BenchMarkIO ( "boon char sequence   ", times, fileName ) {
+                new BenchMarkIO ( "boon char sequence ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
 
                     @Override
                     void run () {
 
-                        JsonParserArrayCharSequence.parseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
+                        JsonParserArrayCharSequence.fullParseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
                     }
                 },
-
-                new BenchMarkIO ( "boon c ar   ", times, fileName ) {
-
-                    byte[] bytes = readFileAsBytes(fileName);
-
-                    @Override
-                    void run () {
-                        try (final InputStreamReader reader = new InputStreamReader ( new ByteArrayInputStream ( bytes ) )) {
-
-                            char [] chars = new char[bytes.length];
-                            reader.read ( chars );
-                            JsonParserCharArray.fullParse ( chars );
-
-                        }catch ( IOException ex ) {
-
-                        }
-
-                    }
-                },
-
                 new BenchMarkIO ( "boon ascii  ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
@@ -188,47 +169,8 @@ public class RunBytesAll {
 
 
                     }
-                },
-                new BenchMarkIO ( "boon a full  ", times, fileName ) {
-
-                    byte[] bytes = readFileAsBytes(fileName);
-
-                    @Override
-                    void run () {
-
-                        JsonAsciiParser.parseMap ( bytes );
-
-
-                    }
                 }
 
-
-//                new BenchMarkIO ( "boon lazy  ", times, fileName ) {
-//
-//                    byte[] bytes = readFileAsBytes(fileName);
-//
-//                    @Override
-//                    void run () {
-//                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
-//                        //This ok for short lived maps like per request or as long as you keep the map together
-//                        //it only matters when you plan on keeping it around for a while, and you
-//                        //are dealing with really large arrays. Jackson parse tree does similar things so...
-//                        JsonLazyEncodeParser.fullParseMap ( chars );
-//                    }
-//                },
-//                new BenchMarkIO ( "boon lazy full  ", times, fileName ) {
-//
-//                    byte[] bytes = readFileAsBytes(fileName);
-//
-//                    @Override
-//                    void run () {
-//                        char[] chars = new String(bytes, StandardCharsets.UTF_8).toCharArray();
-//                        //This ok for short lived maps like per request or as long as you keep the map together
-//                        //it only matters when you plan on keeping it around for a while, and you
-//                        //are dealing with really large arrays. Jackson parse tree does similar things so...
-//                        JsonLazyEncodeParser.parseMap ( chars );
-//                    }
-//                }
         );
     }
 }
