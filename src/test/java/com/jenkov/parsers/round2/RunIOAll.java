@@ -12,6 +12,7 @@ import java.util.Map;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.criteria.Sort;
 import org.boon.json.JsonAsciiParser;
 import org.boon.json.JsonLazyEncodeParser;
 import org.boon.json.JsonParser;
@@ -57,6 +58,16 @@ public class RunIOAll {
             }
 
             puts ("Winner:", winner);
+
+            Sort.asc ( "finalTime" ).sort ( benchMarks );
+
+            System.out.print (Str.rpad("order:", 13, ' '));
+
+            for (BenchMarkIO benchMark: benchMarks) {
+                System.out.print (Str.rpad(benchMark.name, 15, ' '));
+            }
+            System.out.println();
+
 
             puts("___________________________________________________________________________________");
         }
@@ -117,7 +128,7 @@ public class RunIOAll {
 
                     }
                 },
-                new BenchMarkIO ( "boon char sequence  ", times, fileName ) {
+                new BenchMarkIO ( "boon ascii   ", times, fileName ) {
 
                     @Override
                     void run () {

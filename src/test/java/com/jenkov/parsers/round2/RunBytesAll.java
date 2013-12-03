@@ -66,7 +66,7 @@ public class RunBytesAll {
 
             Sort.asc ("finalTime").sort ( benchMarks );
 
-            System.out.print (Str.rpad("order:", 10, ' '));
+            System.out.print (Str.rpad("order:", 13, ' '));
 
             for (BenchMarkIO benchMarkIO: benchMarks) {
                 System.out.print (Str.rpad(benchMarkIO.name, 15, ' '));

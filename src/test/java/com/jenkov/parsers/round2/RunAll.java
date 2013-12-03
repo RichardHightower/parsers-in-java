@@ -9,6 +9,7 @@ import java.util.Map;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.criteria.Sort;
 import org.boon.json.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,6 +52,16 @@ public class RunAll {
 
             puts ("Winner:", winner);
 
+            Sort.asc ( "finalTime" ).sort ( benchMarks );
+
+            System.out.print (Str.rpad("order:", 13, ' '));
+
+            for (BenchMark benchMark: benchMarks) {
+                System.out.print (Str.rpad(benchMark.name, 15, ' '));
+            }
+            System.out.println();
+
+
             puts("___________________________________________________________________________________");
         }
 
@@ -79,7 +90,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                         gson.fromJson (fileContents, Map.class );
+                         gson.fromJson ( fileContents, Map.class );
 
                     }
                 },
