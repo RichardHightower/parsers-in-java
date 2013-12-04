@@ -95,7 +95,11 @@ JACK 1 PASSED widget.json
 
 Dec 3rd (near midnight)
 
-Boon optimization once more. Now Boon wins in every category and by a fairly wide margin.
+Boon optimization once more....
+Now Boon wins in every category and by a fairly wide margin.
+Boon has four parser for different types of buffers and an index overlay parser.
+It can parse direct from CharSequence, CharacterBuffer, StringBuilder, String, byte[] and char[].
+
 
 Preferred buffer test:
 
@@ -108,7 +112,7 @@ boon original        586                      actionLabel.json              100,
 boon ascii           867                      actionLabel.json              100,000
 Boon Index Overlay    497                      actionLabel.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequenceboon ascii     gson           jackson
+order:       Boon Index Overlay,   boon original,  boon char sequence, boon ascii,     gson,           jackson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              1,238                   citm_catalog.json                  100
@@ -118,7 +122,7 @@ boon original        698                     citm_catalog.json                  
 boon ascii           785                     citm_catalog.json                  100
 Boon Index Overlay    568                     citm_catalog.json                  100
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  gson           boon ascii     boon char sequence jackson
+order:       Boon Index Overlay,   boon original,  gson,           boon ascii,     boon char sequence, jackson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              1,279                         medium.json              100,000
@@ -128,7 +132,7 @@ boon original        790                           medium.json              100,
 boon ascii           1,333                         medium.json              100,000
 Boon Index Overlay    657                           medium.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence gson           jackson        boon ascii
+order:       Boon Index Overlay,   boon original,  boon char sequence, gson,           jackson,        boon ascii
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              257                             menu.json              100,000
@@ -138,7 +142,7 @@ boon original        158                             menu.json              100,
 boon ascii           223                             menu.json              100,000
 Boon Index Overlay    129                             menu.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence boon ascii     jackson        gson
+order:       Boon Index Overlay,   boon original,  boon char sequence, boon ascii,     jackson,        gson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              450                             sgml.json              100,000
@@ -148,7 +152,7 @@ boon original        277                             sgml.json              100,
 boon ascii           427                             sgml.json              100,000
 Boon Index Overlay    222                             sgml.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence gson           boon ascii     jackson
+order:       Boon Index Overlay,   boon original,  boon char sequence, gson,           boon ascii,     jackson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              81                             small.json              100,000
@@ -158,7 +162,7 @@ boon original        37                             small.json              100,
 boon ascii           39                             small.json              100,000
 Boon Index Overlay    21                             small.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon ascii     jackson        gson           boon char sequence
+order:       Boon Index Overlay,   boon original,  boon ascii,     jackson,        gson,           boon char sequence
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              2,189                         webxml.json              100,000
@@ -168,7 +172,7 @@ boon original        1,650                         webxml.json              100,
 boon ascii           2,742                         webxml.json              100,000
 Boon Index Overlay    1,285                         webxml.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence jackson        gson           boon ascii
+order:       Boon Index Overlay,   boon original,  boon char sequence, jackson,        gson,           boon ascii
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson              471                           widget.json              100,000
@@ -178,7 +182,13 @@ boon original        300                           widget.json              100,
 boon ascii           455                           widget.json              100,000
 Boon Index Overlay    242                           widget.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence boon ascii     gson           jackson
+order:       Boon Index Overlay,   boon original,  boon char sequence, boon ascii     gson,           jackson
+```
+
+
+From byte array!
+
+```
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       1,300                    actionLabel.json              100,000
@@ -189,13 +199,7 @@ boon char sequence   679                      actionLabel.json              100,
 boon ascii           761                      actionLabel.json              100,000
 Boon Index Overlay    521                      actionLabel.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence boon ascii     json-smart     gson           jackson-object
-```
-
-
-From byte array.
-
-```
+order:       Boon Index Overlay,   boon original,  boon char sequence, boon ascii,     json-smart,     gson           jackson-object
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       1,087                   citm_catalog.json                  100
@@ -206,7 +210,7 @@ boon char sequence   1,384                   citm_catalog.json                  
 boon ascii           754                     citm_catalog.json                  100
 Boon Index Overlay    1,079                   citm_catalog.json                  100
 Winner: boon ascii
-order:       boon ascii     gson           Boon Index Overlay   json-smart     jackson-object boon original  boon char sequence
+order:       boon ascii,     gson,           Boon Index Overlay,   json-smart,     jackson-object, boon original,  boon char sequence
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       1,054                         medium.json              100,000
@@ -217,7 +221,7 @@ boon char sequence   1,029                         medium.json              100,
 boon ascii           1,356                         medium.json              100,000
 Boon Index Overlay    820                           medium.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence jackson-object json-smart     boon ascii     gson
+order:       Boon Index Overlay,   boon original,  boon char sequence, jackson-object, json-smart,     boon ascii     gson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       229                             menu.json              100,000
@@ -228,7 +232,7 @@ boon char sequence   226                             menu.json              100,
 boon ascii           233                             menu.json              100,000
 Boon Index Overlay    172                             menu.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence jackson-object boon ascii     json-smart     gson
+order:       Boon Index Overlay,   boon original,  boon char sequence, jackson-object, boon ascii,     json-smart,     gson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       370                             sgml.json              100,000
@@ -239,7 +243,7 @@ boon char sequence   356                             sgml.json              100,
 boon ascii           400                             sgml.json              100,000
 Boon Index Overlay    304                             sgml.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence jackson-object boon ascii     json-smart     gson
+order:       Boon Index Overlay,   boon original,  boon char sequence, jackson-object, boon ascii,     json-smart,     gson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       63                             small.json              100,000
@@ -250,7 +254,7 @@ boon char sequence   66                             small.json              100,
 boon ascii           36                             small.json              100,000
 Boon Index Overlay    49                             small.json              100,000
 Winner: boon ascii
-order:       boon ascii     Boon Index Overlay   jackson-object boon original  boon char sequence json-smart     gson
+order:       boon ascii,     Boon Index Overlay,   jackson-object, boon original,  boon char sequence, json-smart     gson
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       1,951                         webxml.json              100,000
@@ -261,7 +265,7 @@ boon char sequence   2,120                         webxml.json              100,
 boon ascii           2,735                         webxml.json              100,000
 Boon Index Overlay    1,535                         webxml.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  jackson-object boon char sequence json-smart     gson           boon ascii
+order:       Boon Index Overlay,   boon original,  jackson-objec,t boon char sequence, json-smart,     gson           boon ascii
 ___________________________________________________________________________________
 Name                 Time                                 File           Iterations
 jackson-object       414                           widget.json              100,000
@@ -272,7 +276,7 @@ boon char sequence   403                           widget.json              100,
 boon ascii           447                           widget.json              100,000
 Boon Index Overlay    304                           widget.json              100,000
 Winner: Boon Index Overlay
-order:       Boon Index Overlay   boon original  boon char sequence jackson-object boon ascii     json-smart     gson
+order:       Boon Index Overlay,   boon original,  boon char sequence, jackson-object, boon ascii,     json-smart     gson
 ```
 
 
@@ -362,6 +366,8 @@ order:       boon ascii     Boon Index Overlay   boon original  boon char sequen
 ___________________________________________________________________________________
 ```
 
+
+Not too bad.
 
 Dec 3rd 2013
 My new friend from France has been helping me out. Now there are more tests.
