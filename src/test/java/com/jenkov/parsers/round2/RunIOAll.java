@@ -14,7 +14,7 @@ import org.boon.Lists;
 import org.boon.Str;
 import org.boon.criteria.Sort;
 import org.boon.json.JsonAsciiParser;
-import org.boon.json.JsonLazyEncodeParser;
+import org.boon.json.JsonIndexOverlayParser;
 import org.boon.json.JsonParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -115,7 +115,7 @@ public class RunIOAll {
                     @Override
                     void run () {
                         final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-                        JsonParser.fullParseMap ( chars );
+                        JsonParser.parseMap ( chars );
 
                     }
                 },
@@ -123,8 +123,8 @@ public class RunIOAll {
 
                     @Override
                     void run () {
-                        final String str = IO.read ( IO.path ( fileName ) );
-                        JsonParserCharSequence.fullParseMap ( str );
+                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
+                        JsonParserCharSequence.parseMap ( new String (chars) );
 
                     }
                 },
@@ -135,10 +135,23 @@ public class RunIOAll {
                         try {
                             byte[] buf  = IO.input ( Files.newInputStream ( IO.path ( fileName ) ) );
 
-                            JsonAsciiParser.fullParseMap (buf);
+                            JsonAsciiParser.parseMap (buf);
                         } catch ( IOException e ) {
                             e.printStackTrace ();
                         }
+
+                    }
+                },
+                new BenchMarkIO ( "Boon Index Overlay   ", times, fileName ) {
+
+
+                    @Override
+                    void run () {
+
+                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
+
+                        JsonIndexOverlayParser.parseMap ( chars );
+
 
                     }
                 }

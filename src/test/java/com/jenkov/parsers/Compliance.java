@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.boon.IO;
-import org.boon.json.JsonLazyEncodeParser;
+import org.boon.json.JsonIndexOverlayParser;
 import org.boon.json.JsonParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,7 +42,7 @@ public class Compliance {
 
             try {
                 //Boon 2
-                JsonLazyEncodeParser.parseMap ( fileContents );
+                JsonIndexOverlayParser.parseMap ( fileContents );
                 puts ("BOON 2", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 2", "FAILED", fileName);

@@ -10,7 +10,7 @@ import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
 import org.boon.criteria.Sort;
-import org.boon.json.JsonLazyEncodeParser;
+import org.boon.json.JsonIndexOverlayParser;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -176,7 +176,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonLazyEncodeParser.parseInto ( AllTypes.class, chars );
+                        JsonIndexOverlayParser.parseInto ( AllTypes.class, chars );
 
                     }
                 },
@@ -185,7 +185,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonLazyEncodeParser.parseInto ( AllTypes2.class, chars );
+                        JsonIndexOverlayParser.parseInto ( AllTypes2.class, chars );
 
                     }
                 },
@@ -194,39 +194,10 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonLazyEncodeParser.parseInto ( AllTypes3.class, chars );
-
-                    }
-                },
-
-                new BenchMark ( "boon at", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonLazyEncodeParser.fullParseInto ( AllTypes.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon at2", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonLazyEncodeParser.fullParseInto ( AllTypes2.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon at3", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonLazyEncodeParser.fullParseInto ( AllTypes3.class, chars );
+                        JsonIndexOverlayParser.parseInto ( AllTypes3.class, chars );
 
                     }
                 }
-
         );
     }
 
@@ -262,21 +233,12 @@ public class ObjectInputSerialization {
 
                     }
                 },
-                new BenchMark ( "boon al2 half", times, fileContents ) {
+                new BenchMark ( "boon al2 ", times, fileContents ) {
 
                     @Override
                     void run() {
 
-                        JsonLazyEncodeParser.parseInto ( AllTypes2.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon al2 full", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonLazyEncodeParser.fullParseInto ( AllTypes2.class, chars );
+                        JsonIndexOverlayParser.parseInto ( AllTypes2.class, chars );
 
                     }
                 }
@@ -317,16 +279,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonLazyEncodeParser.parseInto ( AllTypes3.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon al3 full", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonLazyEncodeParser.fullParseInto ( AllTypes3.class, chars );
+                        JsonIndexOverlayParser.parseInto ( AllTypes3.class, chars );
 
                     }
                 }
@@ -365,16 +318,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonLazyEncodeParser.parseInto ( AllTypes.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon full", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonLazyEncodeParser.fullParseInto ( AllTypes.class, chars );
+                        JsonIndexOverlayParser.parseInto ( AllTypes.class, chars );
 
                     }
                 }

@@ -18,10 +18,10 @@ import org.apache.commons.io.FileUtils;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.core.reflection.Reflection;
 import org.boon.criteria.Sort;
 import org.boon.json.*;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
@@ -135,16 +135,7 @@ public class RunBytesAll {
                     
                     @Override
                     void run () {
-                        try (final InputStreamReader reader = new InputStreamReader (
-                                new ByteArrayInputStream ( bytes ) )) {
-
-                            char [] chars = new char[bytes.length];
-                            reader.read ( chars );
-                            JsonParser.fullParseMap ( chars );
-
-                        }catch ( IOException ex ) {
-                             ex.printStackTrace ();
-                        }
+                            JsonParser.parseMap ( new String(bytes, StandardCharsets.UTF_8) );
 
                     }
                 },
@@ -155,7 +146,7 @@ public class RunBytesAll {
                     @Override
                     void run () {
 
-                        JsonParserCharSequence.fullParseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
+                        JsonParserCharSequence.parseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
                     }
                 },
                 new BenchMarkIO ( "boon ascii  ", times, fileName ) {
@@ -165,11 +156,23 @@ public class RunBytesAll {
                     @Override
                     void run () {
 
-                            JsonAsciiParser.fullParseMap ( bytes );
+                            JsonAsciiParser.parseMap ( bytes );
+
+
+                    }
+                }, new BenchMarkIO ( "Boon Index Overlay   ", times, fileName ) {
+
+                    byte[] bytes = readFileAsBytes(fileName);
+
+                    @Override
+                    void run () {
+
+                        JsonIndexOverlayParser.parseMap (  new String(bytes, StandardCharsets.UTF_8)  );
 
 
                     }
                 }
+
 
         );
     }

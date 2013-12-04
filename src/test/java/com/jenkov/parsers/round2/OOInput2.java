@@ -7,7 +7,7 @@ import java.util.List;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
-import org.boon.json.JsonLazyEncodeParser;
+import org.boon.json.JsonIndexOverlayParser;
 
 
 public class OOInput2 {
@@ -54,7 +54,7 @@ public class OOInput2 {
 
                     @Override
                     void run() {
-                        JsonLazyEncodeParser.parseInto ( AllTypes.class, chars );
+                        JsonIndexOverlayParser.parseMapUseValue ( chars );
 
 
                     }
@@ -63,7 +63,7 @@ public class OOInput2 {
 
                     @Override
                     void run() {
-                        JsonLazyEncodeParser.parseInto ( AllTypes.class, chars );
+                        JsonIndexOverlayParser.parseMap (  chars );
 
 
                     }

@@ -1,7 +1,7 @@
 package com.jenkov.parsers.round2;
 
 import org.boon.IO;
-import org.boon.json.JsonLazyEncodeParser;
+import org.boon.json.JsonIndexOverlayParser;
 
 import java.io.IOException;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class BoonBenchV2Mark {
     }
 
     private static void parse(char [] fileContents) {
-        Map<String, Object> map =  JsonLazyEncodeParser.parseMap ( fileContents );
+        Map<String, Object> map =  JsonIndexOverlayParser.parseMap ( fileContents );
 
 
     }

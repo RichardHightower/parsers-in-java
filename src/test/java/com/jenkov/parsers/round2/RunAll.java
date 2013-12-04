@@ -9,6 +9,7 @@ import java.util.Map;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
+import org.boon.core.reflection.Reflection;
 import org.boon.criteria.Sort;
 import org.boon.json.*;
 
@@ -98,7 +99,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        JsonParserCharSequence.fullParseMap ( fileContents );
+                        JsonParserCharSequence.parseMap ( fileContents );
 
                     }
                 },
@@ -106,7 +107,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                       JsonParser.fullParseMap ( chars );
+                       JsonParser.parseMap ( chars );
 
                     }
                 },
@@ -114,10 +115,22 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        JsonAsciiParser.fullParseMap ( bytes );
+                        JsonAsciiParser.parseMap ( bytes );
+
+                    }
+                },
+                new BenchMark ( "Boon Index Overlay   ", times, fileContents ) {
+
+
+                    @Override
+                    void run () {
+
+                        JsonIndexOverlayParser.parseMap (  chars );
+
 
                     }
                 }
+
 
 
 
