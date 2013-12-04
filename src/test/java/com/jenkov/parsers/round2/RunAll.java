@@ -71,7 +71,7 @@ public class RunAll {
     private static List<BenchMark> buildBenchMarkList(final String fileContents, int times) {
 
         if (fileContents.length () > 40_000) {
-            times /= 1_000;
+            times /= 100;
         }
         return Lists.list (
                 new BenchMark("jackson", times, fileContents) {

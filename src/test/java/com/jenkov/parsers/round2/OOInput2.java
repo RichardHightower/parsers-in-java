@@ -14,7 +14,7 @@ public class OOInput2 {
 
     public static void main( String... args ) {
 
-        String file = "object-serialization/AllTypes.json";
+        String file = "data/citm_catalog.json";
         String fileContents = IO.read ( file );
 
         List<BenchMark> benchMarks = buildBenchMarkList ( fileContents, 1_000_000 );
