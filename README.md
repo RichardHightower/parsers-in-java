@@ -404,6 +404,10 @@ I know boon ascii and boon char sequence can be optimized (there are a few buffe
 I think with a bit of elbow grease Boon, although it does well now, can do much better.
 I am sure it can win (for at least 15 minutes until Jackson, and Json-smart optimize theirs) in every category.
 
+Boon can easily win in every category. It does so well. I don't even like showing those results.
+
+Boon like the article implements an Index Overlay Parser Design that formats the data tokens to look like Map/List but does a lazy final realization of the final form into its final form to optimize the final encoding based on the known required type... In the Map list form, it gets realized when you ask for the Map item (map.get("foo")) or the list item (list.get(index)). It screams and does not do final parse until you are ready for it. This would be amazing to use inside of a Servlet request handler. When the request goes away the whole JSON map is gone anyway so if you don't use, it just goes away. It would not be good to use and then keep it aournd because it holds a reference to the orginal buffer, which is not good. It is only meant for transient objects. It is also really nice for Object Serialization because after you are done, the whole thing gets pitched and you can customize the parse based on the data type of the property of the object. It is also wicked fast and blows Jackson out of the water, which even if not useful (which it is)... it is sure fun!
+
 Ok so for the case that I did optimize and profile boon for, how does it fair.
 This is the one I put blood, sweat and tears into. This is the one that matters the most for boon.
 
