@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.boon.IO;
+import org.boon.json.JsonUTF8Parser;
 import org.boon.json.JsonIndexOverlayParser;
 import org.boon.json.JsonParser;
 
@@ -36,6 +37,16 @@ public class Compliance {
                 puts ("BOON 1", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 1", "FAILED", fileName);
+                ex.printStackTrace ();
+                System.err.flush ();
+            }
+
+            try {
+                //Boon 1
+                JsonUTF8Parser.parseMap ( fileContents );
+                puts ("BOON A", "PASSED", fileName);
+            } catch ( Exception ex ) {
+                puts ("BOON A", "FAILED", fileName);
                 ex.printStackTrace ();
                 System.err.flush ();
             }

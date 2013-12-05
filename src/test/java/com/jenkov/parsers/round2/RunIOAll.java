@@ -13,7 +13,7 @@ import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
 import org.boon.criteria.Sort;
-import org.boon.json.JsonAsciiParser;
+import org.boon.json.JsonUTF8Parser;
 import org.boon.json.JsonIndexOverlayParser;
 import org.boon.json.JsonParser;
 
@@ -128,14 +128,14 @@ public class RunIOAll {
 
                     }
                 },
-                new BenchMarkIO ( "boon ascii   ", times, fileName ) {
+                new BenchMarkIO ( "boon utf8   ", times, fileName ) {
 
                     @Override
                     void run () {
                         try {
                             byte[] buf  = IO.input ( Files.newInputStream ( IO.path ( fileName ) ) );
 
-                            JsonAsciiParser.parseMap (buf);
+                            JsonUTF8Parser.parseMap (buf);
                         } catch ( IOException e ) {
                             e.printStackTrace ();
                         }

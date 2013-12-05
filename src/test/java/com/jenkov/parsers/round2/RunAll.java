@@ -9,7 +9,6 @@ import java.util.Map;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
-import org.boon.core.reflection.Reflection;
 import org.boon.criteria.Sort;
 import org.boon.json.*;
 
@@ -111,11 +110,11 @@ public class RunAll {
 
                     }
                 },
-                new BenchMark("boon ascii", times, fileContents) {
+                new BenchMark("boon utf8", times, fileContents) {
 
                     @Override
                     void run() {
-                        JsonAsciiParser.parseMap ( bytes );
+                        JsonUTF8Parser.parseMap ( bytes );
 
                     }
                 },

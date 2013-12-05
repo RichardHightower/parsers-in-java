@@ -18,7 +18,6 @@ import org.apache.commons.io.FileUtils;
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
-import org.boon.core.reflection.Reflection;
 import org.boon.criteria.Sort;
 import org.boon.json.*;
 
@@ -89,7 +88,7 @@ public class RunBytesAll {
     private static List<BenchMarkIO> buildBenchMarkList(final String fileContents, int times, final String fileName) {
 
         if (fileContents.length () > 40_000) {
-            times /= 1_000;
+            times /= 100;
         }
         
         return Lists.list (
@@ -149,14 +148,14 @@ public class RunBytesAll {
                         JsonParserCharSequence.parseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
                     }
                 },
-                new BenchMarkIO ( "boon ascii  ", times, fileName ) {
+                new BenchMarkIO ( "boon utf8  ", times, fileName ) {
 
                     byte[] bytes = readFileAsBytes(fileName);
 
                     @Override
                     void run () {
 
-                            JsonAsciiParser.parseMap ( bytes );
+                        JsonUTF8Parser.parseMap ( bytes );
 
 
                     }
