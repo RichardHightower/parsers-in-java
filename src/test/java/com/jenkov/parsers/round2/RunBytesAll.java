@@ -13,7 +13,6 @@ import java.util.Map;
 
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
-
 import org.apache.commons.io.FileUtils;
 import org.boon.IO;
 import org.boon.Lists;
@@ -79,7 +78,7 @@ public class RunBytesAll {
     
     private static byte[] readFileAsBytes(String fileName) {
         try {
-            return FileUtils.readFileToByteArray(new File(fileName));
+            return FileUtils.readFileToByteArray ( new File ( fileName ) );
         } catch (IOException e) {
             throw new ExceptionInInitializerError(e);
         }
@@ -111,7 +110,7 @@ public class RunBytesAll {
                     @Override
                     void run () {
                         try {
-                            new JSONParser(JSONParser.DEFAULT_PERMISSIVE_MODE).parse ( bytes );
+                            new JSONParser (JSONParser.DEFAULT_PERMISSIVE_MODE).parse ( bytes );
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -134,44 +133,10 @@ public class RunBytesAll {
                     
                     @Override
                     void run () {
-                            JsonParser.parseMap ( new String(bytes, StandardCharsets.UTF_8) );
-
-                    }
-                },
-                new BenchMarkIO ( "boon char sequence ", times, fileName ) {
-
-                    byte[] bytes = readFileAsBytes(fileName);
-
-                    @Override
-                    void run () {
-
-                        JsonParserCharSequence.parseMap ( new String ( bytes, StandardCharsets.UTF_8 ) );
-                    }
-                },
-                new BenchMarkIO ( "boon utf8  ", times, fileName ) {
-
-                    byte[] bytes = readFileAsBytes(fileName);
-
-                    @Override
-                    void run () {
-
-                        JsonUTF8Parser.parseMap ( bytes );
-
-
-                    }
-                }, new BenchMarkIO ( "Boon Index Overlay   ", times, fileName ) {
-
-                    byte[] bytes = readFileAsBytes(fileName);
-
-                    @Override
-                    void run () {
-
-                        JsonIndexOverlayParser.parseMap (  new String(bytes, StandardCharsets.UTF_8)  );
-
+                        new JsonParserFactory ().create ().parse ( Map.class, bytes );
 
                     }
                 }
-
 
         );
     }

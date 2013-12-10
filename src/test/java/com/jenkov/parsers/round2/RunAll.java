@@ -98,7 +98,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        JsonParserCharSequence.parseMap ( fileContents );
+                        new JsonParserFactory ().preferCharSequence ().create ().parse ( Map.class, contents );
 
                     }
                 },
@@ -106,7 +106,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                       JsonParser.parseMap ( chars );
+                        new JsonParserFactory ().create ().parse ( Map.class, chars );
 
                     }
                 },
@@ -114,7 +114,7 @@ public class RunAll {
 
                     @Override
                     void run() {
-                        JsonUTF8Parser.parseMap ( bytes );
+                        new JsonParserFactory ().useDirectBytes ().create ().parse ( Map.class, chars );
 
                     }
                 },
@@ -124,7 +124,7 @@ public class RunAll {
                     @Override
                     void run () {
 
-                        JsonIndexOverlayParser.parseMap (  chars );
+                        new JsonParserFactory ().useOverlay ().create ().parse ( Map.class, chars );
 
 
                     }

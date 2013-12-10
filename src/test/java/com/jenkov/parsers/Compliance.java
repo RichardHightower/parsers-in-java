@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.boon.IO;
-import org.boon.json.JsonUTF8Parser;
-import org.boon.json.JsonIndexOverlayParser;
+import org.boon.json.JsonParserFactory;
 import org.boon.json.JsonParser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,19 +30,10 @@ public class Compliance {
 
             puts ( "testing", fileName );
 
-            try {
-                //Boon 1
-                JsonParser.parseMap ( fileContents );
-                puts ("BOON 1", "PASSED", fileName);
-            } catch ( Exception ex ) {
-                puts ("BOON 1", "FAILED", fileName);
-                ex.printStackTrace ();
-                System.err.flush ();
-            }
 
             try {
                 //Boon 1
-                JsonUTF8Parser.parseMap ( fileContents );
+                new JsonParserFactory().create ().parse ( Map.class, fileContents );
                 puts ("BOON A", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON A", "FAILED", fileName);
@@ -53,7 +43,7 @@ public class Compliance {
 
             try {
                 //Boon 2
-                JsonIndexOverlayParser.parseMap ( fileContents );
+                new JsonParserFactory().useOverlay ().create ().parse ( Map.class, fileContents );
                 puts ("BOON 2", "PASSED", fileName);
             } catch ( Exception ex ) {
                 puts ("BOON 2", "FAILED", fileName);

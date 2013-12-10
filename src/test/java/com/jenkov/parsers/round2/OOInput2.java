@@ -3,11 +3,12 @@ package com.jenkov.parsers.round2;
 import static org.boon.Boon.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
-import org.boon.json.JsonIndexOverlayParser;
+import org.boon.json.JsonParserFactory;
 
 
 public class OOInput2 {
@@ -54,7 +55,7 @@ public class OOInput2 {
 
                     @Override
                     void run() {
-                        JsonIndexOverlayParser.parseMapUseValue ( chars );
+                        new JsonParserFactory ().create ().parse ( Map.class, chars );
 
 
                     }
@@ -63,7 +64,7 @@ public class OOInput2 {
 
                     @Override
                     void run() {
-                        JsonIndexOverlayParser.parseMap (  chars );
+                        new JsonParserFactory ().create ().parse ( Map.class, chars );
 
 
                     }

@@ -5,7 +5,6 @@ import static org.boon.Boon.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +12,9 @@ import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
 import org.boon.criteria.Sort;
-import org.boon.json.JsonUTF8Parser;
-import org.boon.json.JsonIndexOverlayParser;
-import org.boon.json.JsonParser;
-
+import org.boon.json.JsonParserFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import org.boon.json.JsonParserCharSequence;
 
 public class RunIOAll {
 
@@ -110,52 +105,15 @@ public class RunIOAll {
 
                     }
                 },
-                new BenchMarkIO ( "boon original  ", times, fileName ) {
+                new BenchMarkIO ( "boon   ", times, fileName ) {
 
                     @Override
                     void run () {
-                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-                        JsonParser.parseMap ( chars );
-
-                    }
-                },
-                new BenchMarkIO ( "boon char sequence  ", times, fileName ) {
-
-                    @Override
-                    void run () {
-                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-                        JsonParserCharSequence.parseMap ( new String (chars) );
-
-                    }
-                },
-                new BenchMarkIO ( "boon utf8   ", times, fileName ) {
-
-                    @Override
-                    void run () {
-                        try {
-                            byte[] buf  = IO.input ( Files.newInputStream ( IO.path ( fileName ) ) );
-
-                            JsonUTF8Parser.parseMap (buf);
-                        } catch ( IOException e ) {
-                            e.printStackTrace ();
-                        }
-
-                    }
-                },
-                new BenchMarkIO ( "Boon Index Overlay   ", times, fileName ) {
-
-
-                    @Override
-                    void run () {
-
-                        final char[] chars = IO.readCharBuffer ( IO.path ( fileName ) );
-
-                        JsonIndexOverlayParser.parseMap ( chars );
-
+                        final String str = IO.read ( IO.path ( fileName ) );
+                        new JsonParserFactory ().create ().parse ( Map.class, str );
 
                     }
                 }
-
         );
     }
 

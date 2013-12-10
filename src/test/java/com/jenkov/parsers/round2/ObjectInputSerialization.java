@@ -10,11 +10,12 @@ import org.boon.IO;
 import org.boon.Lists;
 import org.boon.Str;
 import org.boon.criteria.Sort;
-import org.boon.json.JsonIndexOverlayParser;
+
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import org.boon.json.JsonParserFactory;
 
 public class ObjectInputSerialization {
 
@@ -176,25 +177,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonIndexOverlayParser.parseInto ( AllTypes.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon ", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonIndexOverlayParser.parseInto ( AllTypes2.class, chars );
-
-                    }
-                },
-                new BenchMark ( "boon ", times, fileContents ) {
-
-                    @Override
-                    void run() {
-
-                        JsonIndexOverlayParser.parseInto ( AllTypes3.class, chars );
+                        new JsonParserFactory ().create ().parse ( AllTypes.class, chars );
 
                     }
                 }
@@ -238,7 +221,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonIndexOverlayParser.parseInto ( AllTypes2.class, chars );
+                        new JsonParserFactory ().create ().parse ( AllTypes.class, chars );
 
                     }
                 }
@@ -279,7 +262,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonIndexOverlayParser.parseInto ( AllTypes3.class, chars );
+                        new JsonParserFactory ().create ().parse ( AllTypes.class, chars );
 
                     }
                 }
@@ -318,7 +301,7 @@ public class ObjectInputSerialization {
                     @Override
                     void run() {
 
-                        JsonIndexOverlayParser.parseInto ( AllTypes.class, chars );
+                        new JsonParserFactory ().create ().parse ( AllTypes.class, chars );
 
                     }
                 }
