@@ -109,8 +109,17 @@ public class RunIOAll {
 
                     @Override
                     void run () {
-                        final String str = IO.read ( IO.path ( fileName ) );
-                        new JsonParserFactory ().create ().parse ( Map.class, str );
+
+                        try( FileReader fis= new FileReader ( fileName ) ) {
+                            new JsonParserFactory ().create ().parse ( Map.class, fis );
+
+
+                        } catch ( IOException e ) {
+                            e.getStackTrace ();
+                            //die("unable to run gson");
+                        }
+
+
 
                     }
                 }
