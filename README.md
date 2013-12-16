@@ -17,6 +17,13 @@ Benchmark                               Mode Thr     Count  Sec         Mean   M
 
 This from FastJson (sleepless in Hayward).
 
+So it looks like boon comes in 1st and 3rd on this test. But look at first again. 
+It is way ahead of the pack.
+Also note that there is an Index Overlay option that is a bit faster. :)
+Congrats to JsonSmart. Clearly, I need to tune the direct byte handling a bit.
+I think Boon can get 1st (convert to char[] and then parse), 2nd (direct bytes) and 3rd (index overlay), but no rush.
+
+
 ```
 Rick's "Boon" small test
 
@@ -41,13 +48,8 @@ http://rick-hightower.blogspot.com/2013/11/benchmark-for-json-parsing-boon-score
 Note Rick is one of our fellows from the Java realm - and from his own comparative figures that I eventually noticed, I take it Rick's "Boon" is pretty darn fast among them guys' Java toolboxes for JSON... That'd almost make a .NET / CLR dude like me jealous of Java... ;)
 ```
 I never meant to make you jealous. :) What is this CLR thing that you speak of? :)
+https://github.com/ysharplanguage/FastJsonParser
 
-
-So it looks like boon comes in 1st and 3rd on this test. But look at first again. 
-It is way ahead of the pack.
-Also note that there is an Index Overlay option that is a bit faster. :)
-Congrats to JsonSmart. Clearly, I need to tune the direct byte handling a bit.
-I think Boon can get 1st (convert to char[] and then parse), 2nd (direct bytes) and 3rd (index overlay), but no rush.
 
 If you want to turn a JSON file into a java.util.Map, it appears that Boon is the fastest option.
 When I first read the article, this was not the case.
