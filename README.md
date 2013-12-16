@@ -1,3 +1,27 @@
+
+12/15/2013
+
+This just in from the Gatling guy from France (a.k.a. Stephane).
+```
+Benchmark                               Mode Thr     Count  Sec         Mean   Mean error    Units
+1  BoonCharArrayBenchmark.roundRobin      thrpt  16        10    1   810895,127   102746,330    ops/s
+2  JsonSmartBytesBenchmark.roundRobin     thrpt  16        10    1   582712,022    55424,984    ops/s
+3  BoonDirectBytesBenchmark.roundRobin    thrpt  16        10    1   577522,193    38627,510    ops/s
+4  JsonSmartStringBenchmark.roundRobin    thrpt  16        10    1   566789,030    42245,984    ops/s
+5  JacksonObjectBenchmark.roundRobin      thrpt  16        10    1   554903,552   251024,921    ops/s
+6  GSONStringBenchmark.roundRobin         thrpt  16        10    1   517546,880    68706,631    ops/s
+7  JacksonASTBenchmark.roundRobin         thrpt  16        10    1   495469,035   299158,957    ops/s
+8  GSONReaderBenchmark.roundRobin         thrpt  16        10    1   432468,228    51960,414    ops/s
+9  JsonSmartStreamBenchmark.roundRobin    thrpt  16        10    1   284085,723   136069,599    ops/s
+10 JsonSmartReaderBenchmark.roundRobin    thrpt  16        10    1    91780,987    24235,931    ops/s
+```
+
+So it looks like boon comes in 1st and 3rd on this test. But look at first again. 
+It is way ahead of the pack.
+Also note that there is an Index Overlay option that is a bit faster. :)
+Congrats to JsonSmart. Clearly, I need to tune the direct byte handling a bit.
+I think Boon can get 1st (convert to char[] and then parse), 2nd (direct bytes) and 3rd (index overlay), but no rush.
+
 If you want to turn a JSON file into a java.util.Map, it appears that Boon is the fastest option.
 When I first read the article, this was not the case.
 I had some ideas for speeding up the JSON parsing, but never seemed to need to (it seemed fast enough).
