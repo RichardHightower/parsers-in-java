@@ -8,6 +8,9 @@ If you want independent confirmation of Boon's speed:
 "Jackson and Boon are basically equivalent, Boon being slightly faster. JSON Parsing." Whoot!
 https://github.com/gatling/json-parsers-benchmark
 
+I forked the above and test Boon against this.
+https://github.com/RichardHightower/json-parsers-benchmark
+
 I downloaded the source for the benchmark, and ran the benchmarks.
 
 Then I tweaked Boon JSON parser to be faster than GSON.
