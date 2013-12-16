@@ -1,7 +1,6 @@
-
 12/15/2013
 
-This just in from the Gatling guy from France (a.k.a. Stephane).
+This just in from the Gatling guy from France (a.k.a. Stephane). So not just the fastest, but independenty verified. :)
 ```
 Benchmark                               Mode Thr     Count  Sec         Mean   Mean error    Units
 1  BoonCharArrayBenchmark.roundRobin      thrpt  16        10    1   810895,127   102746,330    ops/s
@@ -15,6 +14,34 @@ Benchmark                               Mode Thr     Count  Sec         Mean   M
 9  JsonSmartStreamBenchmark.roundRobin    thrpt  16        10    1   284085,723   136069,599    ops/s
 10 JsonSmartReaderBenchmark.roundRobin    thrpt  16        10    1    91780,987    24235,931    ops/s
 ```
+
+This from FastJson (sleepless in Hayward).
+
+```
+Rick's "Boon" small test
+
+Rick's "Boon" small test, slightly modified (deserializing x times the JSON contained in the boon-small.json.txt file = 79 bytes) - with POCO target (1 class):
+
+10,000,000 iterations: in ~ 28.1 seconds
+vs. Microsoft's JavaScriptSerializer in ~ 302.3 seconds (bad omen #1)
+vs. JSON.NET in ~ 56.5 seconds
+vs. ServiceStack in ~ 40.7 seconds
+(Which yields System.Text.Json.JsonParser's throughput : 28,090,886 bytes / second)
+the same Rick's "Boon" small test, this time with "loosely typed" deserialization (no POCO target, just dictionaries and lists - read above):
+
+10,000,000 iterations: in ~ 34.7 seconds
+vs. Microsoft's JavaScriptSerializer in ~ 232.2 seconds (bad omen #2)
+vs. JSON.NET in ~ 72.4 seconds
+vs. ServiceStack in... N / A
+(Which yields System.Text.Json.JsonParser's throughput : 22,739,702 bytes / second)
+Rick's original test can be found at:
+
+http://rick-hightower.blogspot.com/2013/11/benchmark-for-json-parsing-boon-scores.html
+
+Note Rick is one of our fellows from the Java realm - and from his own comparative figures that I eventually noticed, I take it Rick's "Boon" is pretty darn fast among them guys' Java toolboxes for JSON... That'd almost make a .NET / CLR dude like me jealous of Java... ;)
+```
+I never meant to make you jealous. :) What is this CLR thing that you speak of? :)
+
 
 So it looks like boon comes in 1st and 3rd on this test. But look at first again. 
 It is way ahead of the pack.
